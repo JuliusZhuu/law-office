@@ -18,3 +18,7 @@ export const getLawCase = params => request.get('/lawcase/lawcase/get', {params}
 export const listLawCase = params => request.get('/lawcase/lawcase/list', {params})
 /*根据id删除一条案件信息*/
 export const deleteLawCase = params => request.delete('/lawcase/lawcase/delete', {params})
+
+/*项目相关*/
+/*添加一条项目信息*/
+export const insertProjectInfo = params => request.post('/project/project/insert', params)

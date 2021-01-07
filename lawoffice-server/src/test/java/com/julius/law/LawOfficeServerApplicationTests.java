@@ -21,8 +21,7 @@ class LawOfficeServerApplicationTests {
 
     @Test
     public void contextLoads() {
-        createModule("lawcase", new String[]{"LawAssist","lawCase","LawHear","LawParties"});
-
+        createModule("project", new String[]{"project", "projectConcat"});
     }
 
     /**

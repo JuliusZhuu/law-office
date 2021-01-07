@@ -44,8 +44,8 @@
               在办案件<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>在办案件</el-dropdown-item>
-              <el-dropdown-item>归档案件</el-dropdown-item>
+              <el-dropdown-item>在办项目</el-dropdown-item>
+              <el-dropdown-item>归档项目</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>
@@ -68,6 +68,7 @@
         </el-col>
       </el-row>
     </div>
+    <!--数据区域-->
     <div class="tableData">
       <el-table :data="tableData" style="width: 100%">
         <el-table-column type="index" width="40"/>
@@ -223,7 +224,8 @@
     methods: {
       //提交表单信息
       submitForm() {
-        const lawCase = [];//存放单个案件信息
+        //存放单个案件信息
+        const lawCase = [];
         const partiesArr = [];
         const hearArr = [];
         const assistArr = [];
@@ -270,11 +272,6 @@
           that.initData()
           that.commonToast(resp.message)
         })
-      },
-      //显示添加数据的表单
-      showForm() {
-        this.moreInfo = false
-        this.dialogFormVisible = true
       },
       //显示更多添加信息
       showMore() {
@@ -472,7 +469,8 @@
 <style scoped>
   /*筛选搜索样式*/
   .filterSearch {
-    padding: 15px;
+    margin-top: 10px;
+    padding: 10px;
     background: #F1F3FA;
   }
 

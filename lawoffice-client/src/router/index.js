@@ -2,7 +2,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 // 登录
-import login from '@/views/login';
+import Login from '../views/Login';
 // 首页
 import index from '@/views/index';
 /**
@@ -19,7 +19,6 @@ import MachineAisle from '@/views/machine/MachineAisle';
 import LawCase from '../views/lawCase/LawCase';
 
 // 监控查询
-import druidLogin from '@/views/druid/login';
 
 // 图表界面
 import statistics from '@/views/charts/statistics';
@@ -33,7 +32,7 @@ export default new Router({
   routes: [{
     path: '/',
     name: '',
-    component: login,
+    component: Login,
     hidden: true,
     meta: {
       requireAuth: false
@@ -41,7 +40,7 @@ export default new Router({
   }, {
     path: '/login',
     name: '登录',
-    component: login,
+    component: Login,
     hidden: true,
     meta: {
       requireAuth: false
@@ -83,13 +82,6 @@ export default new Router({
       path: '/project/projectIndex',
       name: '项目管理',
       component: ProjectIndex,
-      meta: {
-        requireAuth: true
-      }
-    },{
-      path: '/druid/login',
-      name: '监控查询',
-      component: druidLogin,
       meta: {
         requireAuth: true
       }

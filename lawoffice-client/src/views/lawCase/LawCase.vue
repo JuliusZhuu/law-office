@@ -11,7 +11,8 @@
       <el-row :gutter="20">
         <el-col :span="4">
           <el-button type="primary" icon="el-icon-folder-add" round
-                     @click="dialogFormVisible=true">新建</el-button>
+                     @click="dialogFormVisible=true">新建
+          </el-button>
         </el-col>
         <el-col :span="4">
           <el-dropdown>
@@ -173,10 +174,11 @@
 <script>
   //引入表单动态生成库
   import formCreate from '@form-create/element-ui'
+  import {addLawCase} from "../../request/api";
+
   export default {
     data() {
       return {
-
         //分页信息
         currentPage: 1,//当前页
         count: 50,//每页显示条数
@@ -220,41 +222,31 @@
     methods: {
       //提交表单信息
       submitForm() {
-        //获取基本的form信息
-        // console.log(this.form)
-        // //获取动态添加表单当事人的基本信息
-        // this.createPartiesForms.forEach(item => {
-        //   console.log('createPartiesForms', item.formData())
-        // })
-        //
-        // //获取动态添加表单审理人员的基本信息
-        // this.createHearForms.forEach(item => {
-        //   console.log('createHearForms', item.formData())
-        // })
-        //
-        // //获取动态添加表单辅助人员的基本信息
-        // this.createAssistForms.forEach(item => {
-        //   console.log('createAssistForms', item.formData())
-        // })
-
-        //本地化存储
         const lawCase = [];//存放单个案件信息
-        //组装数据
-        lawCase.push(this.form)
+        const partiesArr = [];
+        const hearArr = [];
+        const assistArr = [];
         this.createPartiesForms.forEach(item => {
-          lawCase.push(item.formData())
+          partiesArr.push(item.formData());
         })
         this.createHearForms.forEach(item => {
-          lawCase.push(item.formData())
+          hearArr.push(item.formData())
         })
         this.createAssistForms.forEach(item => {
-          lawCase.push(item.formData())
+          assistArr.push(item.formData())
         })
+        //组装数据
+        lawCase.push(this.form)
+        lawCase.push(partiesArr)
+        lawCase.push(hearArr)
+        lawCase.push(assistArr)
+        console.log(lawCase)
         //存储到数据库
-
-        this.$message({
-          message: '数据添加成功',
-          type: 'success'
+        addLawCase(lawCase).then(resp => {
+          this.$message({
+            message: '数据添加成功',
+            type: 'success'
+          })
         })
 
       },
@@ -468,6 +460,7 @@
     padding: 15px;
     background: #F1F3FA;
   }
+
   /*设置固定高度*/
   .el-dialog-div {
     height: 70vh;

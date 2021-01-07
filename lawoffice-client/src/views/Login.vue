@@ -13,7 +13,7 @@
                     <div class="userName">
                       <img src="../assets/login/yhm.png" alt="">
                     </div>
-                    <el-input v-model="loginInfo.account" ref="account" placeholder="请输入用户名" class="inpt-mid-size"
+                    <el-input v-model="loginInfo.username" ref="account" placeholder="请输入用户名" class="inpt-mid-size"
                     ></el-input>
                   </el-form-item>
                 </el-col>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-
+  import {goLogin} from '../request/api'
 
   export default {
     data() {
@@ -64,24 +64,30 @@
         labelPosition: 'right',
         imgStr: '',
         loginInfo: {
-          account: '',
+          username: '',
           password: '',
           code: ''
         }
       }
     },
-    mounted() {
-
-    },
     methods: {
       loginFun() {
-        const that = this
-        const {account, password} = this.loginInfo
-        //查询用户信息
-        setTimeout(() => {
-          this.$store.commit('login', 'true')
-          this.$router.push({path: '/goods/Goods'})
-        }, 1000)
+        const {username, password} = this.loginInfo
+        goLogin({username, password}).then(resp => {
+          this.$message({
+            type: 'success',
+            message: resp.message
+          })
+          if (resp.status === 200) {
+            setTimeout(() => {
+              this.logining = false
+              this.$store.commit('login', 'true')
+              this.$router.push({path: '/goods/Goods'})
+            }, 1000)
+          }
+        }).catch(error => {
+          console.log(error)
+        })
       }
     }
   }

@@ -17,6 +17,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         //对哪种格式的请求进行跨域处理,/**表示所有
         registry.addMapping("/**")
+                .allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
                 .allowedOrigins("*");//表示支持来自的域
     }
 }

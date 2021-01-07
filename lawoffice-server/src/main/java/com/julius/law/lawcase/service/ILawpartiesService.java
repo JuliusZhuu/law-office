@@ -20,5 +20,5 @@ public interface ILawpartiesService extends IService<Lawparties> {
      * @param jsonArray 多个当事人信息组成的对象json串
      * @param id        案件id
      */
-    void insert(JSONArray jsonArray, Integer id);
+    void insert(JSONArray jsonArray, Long id);
 }

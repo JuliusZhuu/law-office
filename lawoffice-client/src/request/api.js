@@ -12,3 +12,9 @@ export const getTimeSearch = params => request.get('/search/helper', {params})
 export const goLogin = params => request.post('/user/user/login', params)
 /*添加案件信息*/
 export const addLawCase = params => request.post('/lawcase/lawcase/insert', params)
+/*获取一条案件信息*/
+export const getLawCase = params => request.get('/lawcase/lawcase/get', {params})
+/*获取所有案件信息*/
+export const listLawCase = params => request.get('/lawcase/lawcase/list', {params})
+/*根据id删除一条案件信息*/
+export const deleteLawCase = params => request.delete('/lawcase/lawcase/delete', {params})

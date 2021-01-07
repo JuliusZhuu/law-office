@@ -29,7 +29,7 @@ public class LawpartiesServiceImpl extends ServiceImpl<LawpartiesMapper, Lawpart
     }
 
     @Override
-    public void insert(JSONArray jsonArray, Integer id) {
+    public void insert(JSONArray jsonArray, Long id) {
         List<Lawparties> lawparties = stringToLawParties(jsonArray);
         lawpartiesMapper.insertBatch(lawparties, id);
     }

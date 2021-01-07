@@ -43,7 +43,7 @@ public class LawhearServiceImpl extends ServiceImpl<LawhearMapper, Lawhear> impl
         return lawhears;
     }
     @Override
-    public void insert(JSONArray jsonArray, Integer id) {
+    public void insert(JSONArray jsonArray, Long id) {
         List<Lawhear> lawhears = stringToLawHears(jsonArray);
         lawhearMapper.insertBatch(lawhears,id);
     }

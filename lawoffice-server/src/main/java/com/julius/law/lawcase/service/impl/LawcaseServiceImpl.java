@@ -2,6 +2,9 @@ package com.julius.law.lawcase.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.julius.law.config.ResponseEntity;
 import com.julius.law.lawcase.entity.Lawcase;
 import com.julius.law.lawcase.mapper.LawcaseMapper;
@@ -13,6 +16,10 @@ import com.julius.law.lawcase.service.ILawpartiesService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -50,7 +57,7 @@ public class LawcaseServiceImpl extends ServiceImpl<LawcaseMapper, Lawcase> impl
         Lawcase lawcase = jsonToLawCase(jsonObject);
         //添加数据接收返回的id
         lawcaseMapper.insert(lawcase);
-        Integer id = lawcase.getId();
+        Long id = lawcase.getId();
         //取出当事人信息并添加到数据表中
         iLawpartiesService.insert(jsonArray.getJSONArray(1), id);
         //取出审理人员信息
@@ -58,6 +65,27 @@ public class LawcaseServiceImpl extends ServiceImpl<LawcaseMapper, Lawcase> impl
         //取出辅助人员信息
         iLawassistService.insert(jsonArray.getJSONArray(3), id);
         return new ResponseEntity(200, "添加成功", null);
+    }
+
+    @Override
+    public ResponseEntity list(String username, Long currentPage, Long count) {
+        IPage<Lawcase> pageInfo = new Page<>(currentPage, count);
+        QueryWrapper<Lawcase> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("delete_status", "0");
+        IPage<Lawcase> page = lawcaseMapper.selectPage(pageInfo, queryWrapper);
+        List<Lawcase> records = page.getRecords();
+        return new ResponseEntity(200, "请求成功", records);
+    }
+
+    @Override
+    public ResponseEntity delete(Long id) {
+        QueryWrapper<Lawcase> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("delete_status", "1").eq("id", id);
+        Lawcase lawcase = new Lawcase();
+        lawcase.setId(id);
+        lawcase.setDeleteStatus("1");
+        lawcaseMapper.updateById(lawcase);
+        return new ResponseEntity(200, "删除成功", null);
     }
 
     /**
@@ -80,5 +108,4 @@ public class LawcaseServiceImpl extends ServiceImpl<LawcaseMapper, Lawcase> impl
         lawcase.setBackup(jsonObject.getString("backup"));
         return lawcase;
     }
-
 }

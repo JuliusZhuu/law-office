@@ -26,5 +26,5 @@ public interface LawhearMapper extends BaseMapper<Lawhear> {
      * @param id 案件id
      */
     void insertBatch(@Param("lawHears") List<Lawhear> lawHears,
-                     @Param("id") Integer id);
+                     @Param("id") Long id);
 }

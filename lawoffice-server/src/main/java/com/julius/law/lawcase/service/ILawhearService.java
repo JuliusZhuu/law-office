@@ -14,5 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ILawhearService extends IService<Lawhear> {
 
-    void insert(JSONArray jsonArray, Integer id);
+    void insert(JSONArray jsonArray, Long id);
 }

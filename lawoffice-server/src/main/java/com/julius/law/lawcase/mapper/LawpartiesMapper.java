@@ -25,5 +25,5 @@ public interface LawpartiesMapper extends BaseMapper<Lawparties> {
      * @param id 案件id
      */
     void insertBatch(@Param("lawparties") List<Lawparties> lawparties,
-                     @Param("id") Integer id);
+                     @Param("id") Long id);
 }

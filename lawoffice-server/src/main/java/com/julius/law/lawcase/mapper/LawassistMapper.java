@@ -19,5 +19,5 @@ import java.util.List;
 public interface LawassistMapper extends BaseMapper<Lawassist> {
 
     void insertBatch(@Param("lawassists") List<Lawassist> lawassists,
-                     @Param("id") Integer id);
+                     @Param("id") Long id);
 }

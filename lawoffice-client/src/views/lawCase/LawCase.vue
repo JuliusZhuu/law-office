@@ -70,6 +70,7 @@
     </div>
     <div class="tableData">
       <el-table :data="tableData" style="width: 100%">
+        <el-table-column type="index" width="40"/>
         <el-table-column label="案件名称" width="180">
           <template slot-scope="props">
             <span @click="clickLawCase(props.row.id)">
@@ -174,7 +175,7 @@
 <script>
   //引入表单动态生成库
   import formCreate from '@form-create/element-ui'
-  import {addLawCase} from "../../request/api";
+  import {addLawCase, listLawCase, deleteLawCase} from "../../request/api";
 
   export default {
     data() {
@@ -240,7 +241,6 @@
         lawCase.push(partiesArr)
         lawCase.push(hearArr)
         lawCase.push(assistArr)
-        console.log(lawCase)
         //存储到数据库
         addLawCase(lawCase).then(resp => {
           this.$message({
@@ -248,7 +248,6 @@
             type: 'success'
           })
         })
-
       },
       /**
        * 处理表格编辑事件
@@ -266,9 +265,11 @@
        */
       handleDelete(index) {
         let id = this.tableData[index].id;
-
-        this.commonToast()
-
+        const that = this;
+        deleteLawCase({id}).then(resp => {
+          that.initData()
+          that.commonToast(resp.message)
+        })
       },
       //显示添加数据的表单
       showForm() {
@@ -445,11 +446,25 @@
             }
           }
         )
+      },
+
+      /**
+       * 初始化数据显示
+       * @param condition 条件对象{username:'julius'}
+       */
+      initData(condition = {username: 'julius', currentPage: 1, count: 50}) {
+        const that = this
+        this.tableData = []
+        listLawCase(condition).then(resp => {
+          const {data} = resp
+          data.forEach(item => {
+            that.tableData.push(item)
+          })
+        })
       }
     },
     mounted() {
-
-
+      this.initData();
     }
   }
 </script>

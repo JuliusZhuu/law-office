@@ -39,7 +39,7 @@ public class LawassistServiceImpl extends ServiceImpl<LawassistMapper, Lawassist
     }
 
     @Override
-    public void insert(JSONArray jsonArray, Integer id) {
+    public void insert(JSONArray jsonArray, Long id) {
         List<Lawassist> lawassists = stringToLawAssist(jsonArray);
         lawassistMapper.insertBatch(lawassists,id);
     }

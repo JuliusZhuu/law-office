@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,7 +29,7 @@ public class Lawcase implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty(value = "案件名称")
     private String name;
@@ -58,6 +59,21 @@ public class Lawcase implements Serializable {
 
     @ApiModelProperty(value = "备注")
     private String backup;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "多个当事人集合")
+    private List<Lawparties> lawParties;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "多个审理人员集合")
+    private List<Lawhear> lawHears;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "多个辅助人员集合")
+    private List<Lawassist> LawAssists;
+
+    @ApiModelProperty(value = "删除状态")
+    private String deleteStatus;
 
 
 }

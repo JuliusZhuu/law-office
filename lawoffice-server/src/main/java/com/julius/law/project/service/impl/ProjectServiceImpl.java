@@ -67,4 +67,18 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         map.put("pageInfo", new PageInfo(currentPage, pageSize, pageInfo.getTotal()));
         return new ResponseEntity(200, "返回成功", map);
     }
+
+    @Override
+    public ResponseEntity delete(Long id) {
+        Project project = new Project();
+        project.setId(id);
+        project.setDeleteStatus("1");
+        projectMapper.updateById(project);
+        return new ResponseEntity(200, "成功", null);
+    }
+
+    @Override
+    public void resetTable() {
+        projectMapper.resetTable();
+    }
 }

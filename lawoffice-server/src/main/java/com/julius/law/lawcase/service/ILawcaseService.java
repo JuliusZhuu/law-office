@@ -18,20 +18,24 @@ public interface ILawcaseService extends IService<Lawcase> {
 
     ResponseEntity insert(String lawInfo);
 
-    /**
-     * 列出所有案件信息
-     *
-     * @param username
-     * @param currentPage
-     * @param count
-     * @return
-     */
-    ResponseEntity list(String username , Long currentPage, Long count);
 
     /**
      * 根据id删除一条信息
+     *
      * @param id
      * @return
      */
     ResponseEntity delete(Long id);
+
+    /**
+     * 查询所有案件信息
+     *
+     * @param currentPage 当前页
+     * @param pageSize    每页显示数量
+     * @return
+     */
+    ResponseEntity listLawCases(Integer currentPage, Integer pageSize);
+
+    void resetTable();
+
 }

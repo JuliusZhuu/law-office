@@ -32,4 +32,13 @@ public interface IProjectService extends IService<Project> {
      */
     ResponseEntity listProjects(Integer currentPage, Integer pageSize);
 
+    /**
+     * 删除一条项目信息
+     *
+     * @param id 项目id
+     * @return
+     */
+    ResponseEntity delete(Long id);
+
+    void resetTable();
 }

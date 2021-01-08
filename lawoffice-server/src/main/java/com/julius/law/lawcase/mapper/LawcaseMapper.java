@@ -3,6 +3,7 @@ package com.julius.law.lawcase.mapper;
 import com.julius.law.lawcase.entity.Lawcase;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +19,6 @@ import java.util.List;
 @Repository
 public interface LawcaseMapper extends BaseMapper<Lawcase> {
 
+    @Update("update  lawCase  set deleteStatus='0' ")
+    void resetTable();
 }

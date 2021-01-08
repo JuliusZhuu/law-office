@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.julius.law.config.PageInfo;
 import com.julius.law.config.ResponseEntity;
 import com.julius.law.lawcase.entity.Lawcase;
 import com.julius.law.lawcase.mapper.LawcaseMapper;
@@ -59,7 +60,7 @@ public class LawcaseServiceImpl extends ServiceImpl<LawcaseMapper, Lawcase> impl
         lawcaseMapper.insert(lawcase);
         Long id = lawcase.getId();
         //有数据才添加
-        if (jsonArray.size() >1) {
+        if (jsonArray.size() > 1) {
             //取出当事人信息并添加到数据表中
             iLawpartiesService.insert(jsonArray.getJSONArray(1), id);
             //取出审理人员信息
@@ -71,24 +72,30 @@ public class LawcaseServiceImpl extends ServiceImpl<LawcaseMapper, Lawcase> impl
     }
 
     @Override
-    public ResponseEntity list(String username, Long currentPage, Long count) {
-        IPage<Lawcase> pageInfo = new Page<>(currentPage, count);
-        QueryWrapper<Lawcase> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("delete_status", "0");
-        IPage<Lawcase> page = lawcaseMapper.selectPage(pageInfo, queryWrapper);
-        List<Lawcase> records = page.getRecords();
-        return new ResponseEntity(200, "请求成功", records);
-    }
-
-    @Override
     public ResponseEntity delete(Long id) {
-        QueryWrapper<Lawcase> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("delete_status", "1").eq("id", id);
         Lawcase lawcase = new Lawcase();
         lawcase.setId(id);
         lawcase.setDeleteStatus("1");
         lawcaseMapper.updateById(lawcase);
         return new ResponseEntity(200, "删除成功", null);
+    }
+
+    @Override
+    public ResponseEntity listLawCases(Integer currentPage, Integer pageSize) {
+        IPage<Lawcase> pageInfo = new Page<>(currentPage, pageSize);
+        QueryWrapper<Lawcase> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("deleteStatus", "0");
+        IPage<Lawcase> page = lawcaseMapper.selectPage(pageInfo, queryWrapper);
+        Map<String, Object> map = new HashMap<>();
+        map.put("tableData", page.getRecords());
+        map.put("pageInfo", new PageInfo(currentPage, pageSize, pageInfo.getTotal()));
+        return new ResponseEntity(200, "请求成功", map);
+
+    }
+
+    @Override
+    public void resetTable() {
+          lawcaseMapper.resetTable();
     }
 
     /**

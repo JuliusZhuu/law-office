@@ -33,7 +33,7 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty(value = "项目名称")
     private String name;
@@ -80,5 +80,9 @@ public class Project implements Serializable {
     @ApiModelProperty(value = "多个联系信息")
     @TableField(exist = false)
     private List<Projectconcat> projectConcat;
+
+    @ApiModelProperty(value = "删除状态")
+    @TableField("deleteStatus")
+    private String deleteStatus;
 
 }

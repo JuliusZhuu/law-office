@@ -3,6 +3,7 @@ package com.julius.law.project.mapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.julius.law.project.entity.Project;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,8 @@ public interface ProjectMapper extends BaseMapper<Project> {
      * @return
      */
     List<Project> selectPageProjectInfo(IPage<Project> pageInfo, String username);
+
+    @Update("update  project  set deleteStatus='0' ")
+    void resetTable();
+
 }

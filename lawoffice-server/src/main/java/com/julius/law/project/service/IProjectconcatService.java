@@ -20,5 +20,5 @@ public interface IProjectconcatService extends IService<Projectconcat> {
      * @param jsonArray 联系信息组成的json数组
      * @param id        项目id
      */
-    void insert(JSONArray jsonArray, Integer id);
+    void insert(JSONArray jsonArray, Long id);
 }

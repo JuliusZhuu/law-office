@@ -25,5 +25,5 @@ public interface ProjectconcatMapper extends BaseMapper<Projectconcat> {
      * @param projectId
      */
     void insertBatch(@Param("projectConcats") List<Projectconcat> projectConcats,
-                     @Param("projectId") Integer projectId);
+                     @Param("projectId") Long projectId);
 }

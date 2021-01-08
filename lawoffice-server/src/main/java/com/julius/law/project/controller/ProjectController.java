@@ -48,5 +48,17 @@ public class ProjectController {
         //此处应该获取当前登录用户的信息,根据当前登录用户进行获取
         return projectService.listProjects(currentPage, pageSize);
     }
+
+    /**
+     * 根据id删除一条信息
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("delete")
+    public ResponseEntity delete(@RequestParam Long id) {
+        return projectService.delete(id);
+    }
+
 }
 

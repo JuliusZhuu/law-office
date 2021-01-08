@@ -1,6 +1,6 @@
 <template>
   <!--我的工作台-->
-  <div>
+  <div class="my-work-bench">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>我的工作台</el-breadcrumb-item>
@@ -14,17 +14,23 @@
         </el-col>
         <el-col :span="4">
           <div class="on-case">
-            在办案件/项目(件)
+            <el-link :underline="false">
+              在办案件/项目&nbsp;&nbsp;3(件)
+            </el-link>
           </div>
         </el-col>
         <el-col :span="4">
           <div class="save-case">
-            归档案件/项目(件)
+            <el-link :underline="false">
+              归档案件/项目&nbsp;&nbsp;3(件)
+            </el-link>
           </div>
         </el-col>
         <el-col :span="4">
           <div class="save-times">
-            已记录工时(时)
+            <el-link :underline="false">
+              已记录工时&nbsp;&nbsp;10(时)
+            </el-link>
           </div>
         </el-col>
       </el-row>
@@ -127,6 +133,7 @@
 </script>
 
 <style scoped>
+
   .tips {
     margin-top: 20px;
   }
@@ -135,7 +142,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
   }
 
   .el-link-more {

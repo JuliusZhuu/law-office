@@ -131,12 +131,16 @@
             </div>
         </el-dialog>
         <!--表格区域-->
-        <my-table-data :tableHeader="tableHeader" :tableData="tableData" :pageInfo="pageInfo"/>
+        <my-table-data :tableHeader="tableHeader" :tableData="tableData" :pageInfo="pageInfo"
+                       @pageInfoChange="pageInfoChange" @deleteItem="deleteItem"/>
     </div>
 </template>
 
 <script>
-    import {insertProjectInfo, listProjectInfo} from "../../request/api";
+    import {
+        insertProjectInfo, listProjectInfo,
+        deleteProjectInfo
+    } from "../../request/api";
     import MyTableData from "../../components/MyTableData";
 
     export default {
@@ -172,11 +176,19 @@
                 //表格数据
                 tableData: [],
                 //分页信息
-                pageInfo: {currentPage: 1, pageSize: 20, total: 1000}
+                pageInfo: {currentPage: 1, pageSize: 20, total: 100}
             }
         },
         mounted() {
-            this.initData(this.pageInfo);
+            //初始化表头信息
+            this.tableHeader.push(
+                {labelName: '项目名称', propertyName: 'name'},
+                {labelName: '项目类型', propertyName: 'type'},
+                {labelName: '负责人', propertyName: 'principal'},
+                {labelName: '项目等级', propertyName: 'level'},
+                {labelName: '创建时间', propertyName: 'createDate'}
+            )
+            this.initData();
         },
         methods: {
             submitForm() {
@@ -264,21 +276,36 @@
             },
             /**
              * 初始化数据显示
-             * @param param 分页信息对象
+             * @param condition 条件对象{username:'julius'}
              */
-            initData(param) {
-                this.tableHeader.push(
-                    {labelName: '项目名称', propertyName: 'name'},
-                    {labelName: '项目类型', propertyName: 'type'},
-                    {labelName: '负责人', propertyName: 'principal'},
-                    {labelName: '项目等级', propertyName: 'level'},
-                    {labelName: '创建时间', propertyName: 'createDate'}
-                )
+            initData(condition = {currentPage: 1, pageSize: 20}) {
                 const that = this
-                listProjectInfo(param).then(resp => {
+                listProjectInfo(condition).then(resp => {
                     const {tableData, pageInfo} = resp.data
                     that.tableData = tableData;
                     that.pageInfo = pageInfo;
+                })
+            },
+            /**
+             *分页信息发生改变
+             * @param currentPage 改变后的页数
+             * @param pageSize 每页显示数量
+             */
+            pageInfoChange(currentPage, pageSize) {
+                this.initData({currentPage, pageSize});
+            },
+            /**
+             *删除一条数据
+             * @param id 要删除数据的id
+             */
+            deleteItem(id) {
+                const that = this
+                deleteProjectInfo({id}).then(resp => {
+                    that.initData()
+                    that.$message({
+                        type: 'success',
+                        message: '成功'
+                    })
                 })
             }
         },

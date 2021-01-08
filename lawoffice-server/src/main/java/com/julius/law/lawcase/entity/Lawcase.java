@@ -73,7 +73,6 @@ public class Lawcase implements Serializable {
     private List<Lawassist> LawAssists;
 
     @ApiModelProperty(value = "删除状态")
+    @TableField("deleteStatus")
     private String deleteStatus;
-
-
 }

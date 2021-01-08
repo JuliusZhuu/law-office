@@ -30,7 +30,7 @@ public class ProjectconcatServiceImpl extends ServiceImpl<ProjectconcatMapper, P
     }
 
     @Override
-    public void insert(JSONArray jsonArray, Integer id) {
+    public void insert(JSONArray jsonArray, Long id) {
         List<Projectconcat> projectconcats = stringToConcat(jsonArray);
         projectconcatMapper.insertBatch(projectconcats, id);
     }

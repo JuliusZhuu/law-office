@@ -38,16 +38,14 @@ public class LawcaseController {
     /**
      * 列出所有案件信息
      *
-     * @param username    用户名
      * @param currentPage 当前页
-     * @param count       每页显示数量
+     * @param pageSize    每页显示条数
      * @return
      */
     @GetMapping("list")
-    public ResponseEntity list(@RequestParam("username") String username,
-                               @RequestParam("currentPage") Long currentPage,
-                               @RequestParam("count") Long count) {
-        return iLawcaseService.list(username, currentPage, count);
+    public ResponseEntity list(@RequestParam("currentPage") Integer currentPage,
+                               @RequestParam("pageSize") Integer pageSize) {
+        return iLawcaseService.listLawCases(currentPage, pageSize);
     }
 
     /**

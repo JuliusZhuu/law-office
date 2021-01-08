@@ -1,16 +1,20 @@
 <template>
   <!--表格数据组件,用于给案件信息,项目信息公用数据展示 -->
   <div class="my-table">
-    <div v-if="tableHeader.length>0">
+    <div v-if="tableData.length>0">
       <el-table ref="singleTable"
                 :data="tableData" max-height="500"
-                highlight-current-row @current-change="handleCurrentChange"
-                style="width: 100%">
+                highlight-current-row
+                style="width: 100%" align="center">
         <el-table-column type="index" width="40"/>
         <el-table-column v-for="(item,index) in tableHeader" :label="item.labelName"
-                         :property="item.propertyName"  :key="index">
+                         :property="item.propertyName" :key="index">
         </el-table-column>
         <el-table-column align="center">
+          <template slot="header" slot-scope="scope">
+            <el-input
+              v-model="searchName" size="mini" placeholder="输入关键字搜索"/>
+          </template>
           <template slot-scope="scope">
             <el-button size="mini"
                        @click="handleEdit(scope.$index, scope.row)">编辑
@@ -28,7 +32,9 @@
           :page-sizes="[10, 20, 50, 100]"
           :page-size="pageInfo.pageSize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="pageInfo.total">
+          :total="pageInfo.total"
+          @size-change="sizeChange"
+          @current-change="currentChange">
         </el-pagination>
       </div>
     </div>
@@ -50,6 +56,8 @@
       return {
         //没有数据显示的图片
         noData: case_nodata,
+        //搜索关键词
+        searchName: null,
         /*
         * tableHeader:[]
         * 表头数据,labelName用于显示表头信息,propertyName用于展示数据
@@ -77,16 +85,26 @@
         currentPage4: 1
       }
     },
-    props: ['tableHeader', 'tableData', 'pageInfo'],
-    mounted() {
-
-    },
+    props: ['tableHeader', 'tableData', 'pageInfo', 'pageInfoChange', 'deleteItem'],
     methods: {
-      setCurrent(row) {
-        this.$refs.singleTable.setCurrentRow(row);
+      /**
+       * 每页显示数量发生改变
+       * @param pageSize 改变之后的值
+       */
+      sizeChange(pageSize) {
+        const currentPage = this.pageInfo.currentPage;
+        this.$emit('pageInfoChange', currentPage, pageSize)
       },
-      handleCurrentChange(val) {
-        this.currentRow = val;
+      /**
+       * 当前页数发生改变
+       * @param currentPage 改变之后的值
+       */
+      currentChange(currentPage) {
+        const pageSize = this.pageInfo.pageSize;
+        this.$emit('pageInfoChange', currentPage, pageSize)
+      },
+      setCurrent(row) {
+
       },
       /**
        * 处理表格编辑事件
@@ -101,11 +119,12 @@
        * @param index 当前数据下标
        */
       handleDelete(index) {
-
+        let id = this.tableData[index].id;
+        this.$emit('deleteItem', id)
       },
       clickLawCase(id) {
 
-      },
+      }
     }
   }
 </script>

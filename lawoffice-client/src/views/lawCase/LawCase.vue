@@ -10,13 +10,13 @@
     <div class="filterSearch">
       <el-row :gutter="20">
         <el-col :span="4">
-          <el-button type="primary" icon="el-icon-folder-add" round  size="small"
+          <el-button type="primary" icon="el-icon-folder-add" round size="small"
                      @click="dialogFormVisible=true">新建
           </el-button>
         </el-col>
         <el-col :span="4">
           <el-dropdown>
-            <el-button type="primary"  size="small">
+            <el-button type="primary" size="small">
               案件类型<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -29,7 +29,7 @@
         </el-col>
         <el-col :span="4">
           <el-dropdown>
-            <el-button type="primary"  size="small">
+            <el-button type="primary" size="small">
               我参与的<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -40,7 +40,7 @@
         </el-col>
         <el-col :span="4">
           <el-dropdown>
-            <el-button type="primary"  size="small">
+            <el-button type="primary" size="small">
               在办案件<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -51,7 +51,7 @@
         </el-col>
         <el-col :span="4">
           <el-dropdown>
-            <el-button type="primary"  size="small">
+            <el-button type="primary" size="small">
               案件等级<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -69,40 +69,8 @@
       </el-row>
     </div>
     <!--数据区域-->
-    <div class="tableData">
-      <el-table :data="tableData" style="width: 100%"  max-height="500">
-        <el-table-column type="index" width="40"/>
-        <el-table-column label="案件名称" width="180">
-          <template slot-scope="props">
-            <span @click="clickLawCase(props.row.id)">
-                {{props.row.name}}
-            </span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="organizationNumber" label="案号" width="180">
-        </el-table-column>
-        <el-table-column prop="principal" label="负责人">
-        </el-table-column>
-        <el-table-column prop="organization" label="审理机构">
-        </el-table-column>
-        <el-table-column prop="level" label="案件等级">
-        </el-table-column>
-        <el-table-column align="right">
-          <template slot-scope="scope">
-            <el-button size="mini"
-                       @click="handleEdit(scope.$index, scope.row)">编辑
-            </el-button>
-            <el-button size="mini" type="danger"
-                       @click="handleDelete(scope.$index, scope.row)">删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <!--分页处理-->
-      <el-pagination background layout="prev, pager, next"
-                     :total="1000">
-      </el-pagination>
-    </div>
+    <my-table-data :tableHeader="tableHeader" :tableData="tableData" :pageInfo="pageInfo"
+                   @pageInfoChange="pageInfoChange" @deleteItem="deleteItem"/>
     <!--弹出表单-->
     <el-dialog title="新建案件" :visible.sync="dialogFormVisible" center>
       <div class="el-dialog-div">
@@ -176,15 +144,12 @@
 <script>
   //引入表单动态生成库
   import formCreate from '@form-create/element-ui'
+  import MyTableData from "../../components/MyTableData";
   import {addLawCase, listLawCase, deleteLawCase} from "../../request/api";
 
   export default {
     data() {
       return {
-        //分页信息
-        currentPage: 1,//当前页
-        count: 50,//每页显示条数
-        tableData: [],
         //生成的多个当事人表单实例对象数组
         createPartiesForms: [],
         //生成的多个审理人员表单实例对象数组
@@ -218,7 +183,10 @@
             {required: true}
           ],
         },
-        formLabelWidth: '100px'
+        formLabelWidth: '100px',
+        tableHeader: [],
+        tableData: [],
+        pageInfo: {currentPage: 1, pageSize: 20, total: 100}
       }
     },
     methods: {
@@ -260,18 +228,6 @@
       },
       clickLawCase(id) {
 
-      },
-      /**
-       * 处理表格删除事件
-       * @param index 下标
-       */
-      handleDelete(index) {
-        let id = this.tableData[index].id;
-        const that = this;
-        deleteLawCase({id}).then(resp => {
-          that.initData()
-          that.commonToast(resp.message)
-        })
       },
       //显示更多添加信息
       showMore() {
@@ -449,20 +405,47 @@
        * 初始化数据显示
        * @param condition 条件对象{username:'julius'}
        */
-      initData(condition = {username: 'julius', currentPage: 1, count: 50}) {
+      initData(condition = {currentPage: 1, pageSize: 20}) {
         const that = this
         this.tableData = []
         listLawCase(condition).then(resp => {
-          const {data} = resp
-          data.forEach(item => {
-            that.tableData.push(item)
-          })
+          const {tableData, pageInfo} = resp.data
+          that.tableData = tableData;
+          that.pageInfo = pageInfo;
+        })
+      },
+      /**
+       *分页信息发生改变
+       * @param currentPage 改变后的页数
+       * @param pageSize 每页显示数量
+       */
+      pageInfoChange(currentPage, pageSize) {
+        this.initData({currentPage, pageSize});
+      },
+      /**
+       *删除一条数据
+       * @param id 要删除数据的id
+       */
+      deleteItem(id) {
+        const that = this
+        deleteLawCase({id}).then(resp => {
+          that.initData()
+          that.commonToast()
         })
       }
     },
     mounted() {
+      //初始化表头信息
+      this.tableHeader.push(
+        {labelName: '案件名称', propertyName: 'name'},
+        {labelName: '案号', propertyName: 'organizationNumber'},
+        {labelName: '负责人', propertyName: 'principal'},
+        {labelName: '审理机构', propertyName: 'organization'},
+        {labelName: '案件等级', propertyName: 'level'}
+      )
       this.initData();
-    }
+    },
+    components: {MyTableData}
   }
 </script>
 
@@ -482,11 +465,6 @@
 
   .dialog-footer {
     margin-top: 5px;
-    text-align: center;
-  }
-
-  /*表格样式*/
-  .tableData {
     text-align: center;
   }
 </style>

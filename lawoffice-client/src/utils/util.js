@@ -54,7 +54,7 @@ function setCookie(name, value, day) {
     let date = new Date();
     date.setDate(date.getDate() + day);
     document.cookie = name + '=' + value + ';expires=' + date;
-};
+}
 
 /**
  * 获取cookie
@@ -67,17 +67,17 @@ function getCookie(name) {
     } else {
         return '';
     }
-};
+}
 
 /**
  * 删除cookie
  **/
 function delCookie(name) {
     setCookie(name, null, -1);
-};
+}
 
 /**
- * 导出 
+ * 导出
  **/
 export {
     timestampToTime,

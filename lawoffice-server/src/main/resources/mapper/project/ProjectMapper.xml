@@ -29,27 +29,30 @@
 
     <select id="selectPageProjectInfo" resultMap="baseProjects">
         SELECT p.id,
-               p.name,
-               p.type,
-               p.level,
-               p.entrust,
-               p.principal,
-               p.entrustItem,
-               p.startDate,
-               p.endDate,
-               p.expenditure,
-               p.expendExplain,
-               p.backup,
-               p.createDate,
-               pt.concatName,
-               pt.organization,
-               pt.position,
-               pt.mobile,
-               pt.email,
-               pt.address,
-               pt.projectId
+        p.name,
+        p.type,
+        p.level,
+        p.entrust,
+        p.principal,
+        p.entrustItem,
+        p.startDate,
+        p.endDate,
+        p.expenditure,
+        p.expendExplain,
+        p.backup,
+        p.createDate,
+        pt.concatName,
+        pt.organization,
+        pt.position,
+        pt.mobile,
+        pt.email,
+        pt.address,
+        pt.projectId
         FROM project AS p
-                 LEFT JOIN projectConcat AS pt
-                           ON p.id = pt.projectId
+        LEFT JOIN projectConcat AS pt
+        ON p.id = pt.projectId
+        <where>
+            p.deleteStatus='0'
+        </where>
     </select>
 </mapper>

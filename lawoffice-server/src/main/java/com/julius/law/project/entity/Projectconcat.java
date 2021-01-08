@@ -49,5 +49,6 @@ public class Projectconcat implements Serializable {
     private String address;
 
     @ApiModelProperty(value = "项目id")
+    @TableField(value = "projectId")
     private Integer projectId;
 }

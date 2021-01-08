@@ -1,15 +1,26 @@
 package com.julius.law.project.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.julius.law.config.PageInfo;
 import com.julius.law.config.ResponseEntity;
+import com.julius.law.lawcase.entity.Lawcase;
 import com.julius.law.project.entity.Project;
+import com.julius.law.project.entity.Projectconcat;
 import com.julius.law.project.mapper.ProjectMapper;
 import com.julius.law.project.service.IProjectService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.julius.law.project.service.IProjectconcatService;
+import io.swagger.models.auth.In;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -39,10 +50,21 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         Project object = jsonArray.getObject(0, Project.class);
         projectMapper.insert(object);
         //有联系人才会添加
-        if (jsonArray.size() >1) {
+        if (jsonArray.size() > 1) {
             projectconcatService.insert(jsonArray.getJSONArray(1), object.getId());
         }
         return new ResponseEntity(200, "添加成功", null);
     }
 
+    @Override
+    public ResponseEntity listProjects(Integer currentPage, Integer pageSize) {
+        //查询项目的基本信息
+        IPage<Project> pageInfo = new Page<>(currentPage, pageSize);
+        List<Project> projects = projectMapper.selectPageProjectInfo(pageInfo, null);
+        pageInfo.getRecords();
+        Map<String, Object> map = new HashMap<>();
+        map.put("tableData", projects);
+        map.put("pageInfo", new PageInfo(currentPage, pageSize, pageInfo.getTotal()));
+        return new ResponseEntity(200, "返回成功", map);
+    }
 }

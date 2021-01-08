@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -69,5 +71,14 @@ public class Project implements Serializable {
 
     @ApiModelProperty(value = "备注信息")
     private String backup;
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField(value = "createDate")
+    private Date createDate;
+
+    //多个联系人信息
+    @ApiModelProperty(value = "多个联系信息")
+    @TableField(exist = false)
+    private List<Projectconcat> projectConcat;
 
 }

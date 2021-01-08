@@ -3,11 +3,8 @@ package com.julius.law.project.controller;
 
 import com.julius.law.config.ResponseEntity;
 import com.julius.law.project.service.IProjectService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.models.auth.In;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -36,6 +33,20 @@ public class ProjectController {
     @PostMapping("insert")
     public ResponseEntity insert(@RequestBody String data) {
         return projectService.insert(data);
+    }
+
+    /**
+     * 列出所有项目信息
+     *
+     * @param currentPage 当前页
+     * @param pageSize    每页显示条数
+     * @return
+     */
+    @GetMapping("list")
+    public ResponseEntity list(@RequestParam("currentPage") Integer currentPage,
+                               @RequestParam("pageSize") Integer pageSize) {
+        //此处应该获取当前登录用户的信息,根据当前登录用户进行获取
+        return projectService.listProjects(currentPage, pageSize);
     }
 }
 

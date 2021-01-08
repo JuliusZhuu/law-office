@@ -2,4 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.julius.law.project.mapper.ProjectMapper">
 
+    <resultMap id="baseProjects" type="com.julius.law.project.entity.Project">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="level" property="level"/>
+        <result column="entrust" property="entrust"/>
+        <result column="principal" property="principal"/>
+        <result column="entrustItem" property="entrustItem"/>
+        <result column="startDate" property="startDate"/>
+        <result column="endDate" property="endDate"/>
+        <result column="expenditure" property="expenditure"/>
+        <result column="expendExplain" property="expendExplain"/>
+        <result column="backup" property="backup"/>
+        <result column="createDate" property="createDate"/>
+        <collection property="projectConcat" ofType="com.julius.law.project.entity.Projectconcat">
+            <result column="concatName" property="concatName"/>
+            <result column="organization" property="organization"/>
+            <result column="position" property="position"/>
+            <result column="mobile" property="mobile"/>
+            <result column="email" property="email"/>
+            <result column="address" property="address"/>
+            <result column="projectId" property="projectId"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectPageProjectInfo" resultMap="baseProjects">
+        SELECT p.id,
+               p.name,
+               p.type,
+               p.level,
+               p.entrust,
+               p.principal,
+               p.entrustItem,
+               p.startDate,
+               p.endDate,
+               p.expenditure,
+               p.expendExplain,
+               p.backup,
+               p.createDate,
+               pt.concatName,
+               pt.organization,
+               pt.position,
+               pt.mobile,
+               pt.email,
+               pt.address,
+               pt.projectId
+        FROM project AS p
+                 LEFT JOIN projectConcat AS pt
+                           ON p.id = pt.projectId
+    </select>
 </mapper>

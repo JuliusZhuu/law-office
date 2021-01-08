@@ -10,13 +10,13 @@
     <div class="filterSearch">
       <el-row :gutter="20">
         <el-col :span="4">
-          <el-button type="primary" icon="el-icon-folder-add" round
+          <el-button type="primary" icon="el-icon-folder-add" round  size="small"
                      @click="dialogFormVisible=true">新建
           </el-button>
         </el-col>
         <el-col :span="4">
           <el-dropdown>
-            <el-button type="primary">
+            <el-button type="primary"  size="small">
               案件类型<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -29,7 +29,7 @@
         </el-col>
         <el-col :span="4">
           <el-dropdown>
-            <el-button type="primary">
+            <el-button type="primary"  size="small">
               我参与的<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -40,7 +40,7 @@
         </el-col>
         <el-col :span="4">
           <el-dropdown>
-            <el-button type="primary">
+            <el-button type="primary"  size="small">
               在办案件<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -51,7 +51,7 @@
         </el-col>
         <el-col :span="4">
           <el-dropdown>
-            <el-button type="primary">
+            <el-button type="primary"  size="small">
               案件等级<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">

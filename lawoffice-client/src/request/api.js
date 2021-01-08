@@ -22,3 +22,5 @@ export const deleteLawCase = params => request.delete('/lawcase/lawcase/delete',
 /*项目相关*/
 /*添加一条项目信息*/
 export const insertProjectInfo = params => request.post('/project/project/insert', params)
+/*列出所有项目信息*/
+export const listProjectInfo = params => request.get('/project/project/list', {params})

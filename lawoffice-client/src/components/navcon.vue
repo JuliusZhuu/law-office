@@ -12,7 +12,13 @@
     </el-submenu>
     <el-link><i class="iconfont  iconwentigaishu_m"></i></el-link>
     <el-link class="iconfont icontongzhi"></el-link>
-    <el-link>日历<i></i></el-link>
+    <el-popover
+      placement="top-start" width="500"
+      trigger="hover">
+      <el-link slot="reference">日历<i></i></el-link>
+      <el-calendar >
+      </el-calendar>
+    </el-popover>
     <el-link>扩展包<i></i></el-link>
     <el-link>免费试用<i class="iconfont iconhuangguan"></i></el-link>
   </el-menu>

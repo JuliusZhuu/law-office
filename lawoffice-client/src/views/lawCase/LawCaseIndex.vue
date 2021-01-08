@@ -1,14 +1,13 @@
-<!--案件管理-->
 <template>
+  <!--案件管理-->
   <div>
-    <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>案件管理</el-breadcrumb-item>
     </el-breadcrumb>
     <!--顶部下拉筛选框-->
     <div class="filterSearch">
-      <el-row :gutter="20">
+      <el-row >
         <el-col :span="4">
           <el-button type="primary" icon="el-icon-folder-add" round size="small"
                      @click="dialogFormVisible=true">新建
@@ -63,8 +62,10 @@
           </el-dropdown>
         </el-col>
         <el-col :span="4">
-          <el-tag>导入案件</el-tag>
-          <el-tag>导出案件</el-tag>
+          <el-button size="mini" icon="el-icon-upload2" plain>导入案件
+          </el-button>
+          <el-button style="margin:0" size="mini" icon="el-icon-position" plain>导出案件
+          </el-button>
         </el-col>
       </el-row>
     </div>

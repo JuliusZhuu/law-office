@@ -5,18 +5,13 @@ import Router from 'vue-router';
 import Login from '../views/Login';
 // 首页
 import index from '@/views/index';
-/**
- * 基础菜单
- */
+
 // 商品管理
 import MyWorkBenchIndex from '../views/workbench/MyWorkBenchIndex';
-// 机器信息管理
-import Machine from '@/views/machine/Machine';
-// 货道信息管理
-import MachineAisle from '@/views/machine/MachineAisle';
+
 
 // 案件管理
-import LawCase from '../views/lawCase/LawCase';
+import LawCaseIndex from '../views/lawCase/LawCaseIndex';
 
 // 监控查询
 
@@ -61,24 +56,19 @@ export default new Router({
           meta: {
             requireAuth: true
           }
-        }, {
-          path: '/machine/Machine',
-          name: '机器信息管理',
-          component: Machine,
+        },
+        {
+          path: '/client/clientManageIndex',
+          name: '客户管理',
+          component: () => import('../views/client/ClientManageIndex'),
           meta: {
             requireAuth: true
           }
-        }, {
-          path: '/machine/MachineAisle',
-          name: '货道信息管理',
-          component: MachineAisle,
-          meta: {
-            requireAuth: true
-          }
-        }, {
+        },
+        {
           path: '/lawCase/lawCase',
           name: '案件管理',
-          component: LawCase,
+          component: LawCaseIndex,
           meta: {
             requireAuth: true
           }

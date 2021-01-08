@@ -102,17 +102,9 @@
               {
                 menuid: 129,
                 icon: 'icon-provider-manage',
-                menuname: '支付配置信息',
+                menuname: '客户管理',
                 hasThird: 'N',
-                url: 'machine/MachineConfig',
-                menus: null
-              },
-              {
-                menuid: 175,
-                icon: 'icon-provider-manage',
-                menuname: '支付配置',
-                hasThird: 'N',
-                url: 'pay/Config',
+                url: 'client/clientManageIndex',
                 menus: null
               }
             ]

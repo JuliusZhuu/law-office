@@ -1,7 +1,7 @@
 <template>
   <!--表格数据组件,用于给案件信息,项目信息公用数据展示 -->
   <div class="my-table">
-    <div v-if="tableData.length>0">
+    <div v-if="(typeof tableData)!== 'undefined'&&tableData.length>0">
       <el-table ref="singleTable"
                 :data="tableData" max-height="500"
                 highlight-current-row
@@ -125,6 +125,9 @@
       clickLawCase(id) {
 
       }
+    },
+    mounted() {
+      console.log(typeof this.tableData === 'undefined')
     }
   }
 </script>

@@ -82,7 +82,7 @@
             setTimeout(() => {
               this.logining = false
               this.$store.commit('login', 'true')
-              this.$router.push({path: '/goods/Goods'})
+              this.$router.push({path: '/workBench/myWorkBench'})
             }, 1000)
           }
         }).catch(error => {

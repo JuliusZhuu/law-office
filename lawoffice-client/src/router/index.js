@@ -9,7 +9,7 @@ import index from '@/views/index';
  * 基础菜单
  */
 // 商品管理
-import Goods from '@/views/goods/Goods';
+import MyWorkBenchIndex from '../views/workbench/MyWorkBenchIndex';
 // 机器信息管理
 import Machine from '@/views/machine/Machine';
 // 货道信息管理
@@ -29,69 +29,73 @@ Vue.use(Router)
 
 // 导出路由
 export default new Router({
-  routes: [{
-    path: '/',
-    name: '',
-    component: Login,
-    hidden: true,
-    meta: {
-      requireAuth: false
-    }
-  }, {
-    path: '/login',
-    name: '登录',
-    component: Login,
-    hidden: true,
-    meta: {
-      requireAuth: false
-    }
-  }, {
-    path: '/index',
-    name: '首页',
-    component: index,
-    iconCls: 'el-icon-tickets',
-    children: [{
-      path: '/goods/Goods',
-      name: '商品管理',
-      component: Goods,
+  routes: [
+    {
+      path: '/',
+      name: '',
+      component: Login,
+      hidden: true,
       meta: {
-        requireAuth: true
+        requireAuth: false
       }
-    }, {
-      path: '/machine/Machine',
-      name: '机器信息管理',
-      component: Machine,
+    },
+    {
+      path: '/login',
+      name: '登录',
+      component: Login,
+      hidden: true,
       meta: {
-        requireAuth: true
+        requireAuth: false
       }
-    }, {
-      path: '/machine/MachineAisle',
-      name: '货道信息管理',
-      component: MachineAisle,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/lawCase/lawCase',
-      name: '案件管理',
-      component: LawCase,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/project/projectIndex',
-      name: '项目管理',
-      component: ProjectIndex,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/charts/statistics',
-      name: '数据可视化',
-      component: statistics,
-      meta: {
-        requireAuth: true
-      }
+    },
+    {
+      path: '/index',
+      name: '首页',
+      component: index,
+      iconCls: 'el-icon-tickets',
+      children: [
+        {
+          path: '/workBench/myWorkBench',
+          name: '我的工作台',
+          component: MyWorkBenchIndex,
+          meta: {
+            requireAuth: true
+          }
+        }, {
+          path: '/machine/Machine',
+          name: '机器信息管理',
+          component: Machine,
+          meta: {
+            requireAuth: true
+          }
+        }, {
+          path: '/machine/MachineAisle',
+          name: '货道信息管理',
+          component: MachineAisle,
+          meta: {
+            requireAuth: true
+          }
+        }, {
+          path: '/lawCase/lawCase',
+          name: '案件管理',
+          component: LawCase,
+          meta: {
+            requireAuth: true
+          }
+        }, {
+          path: '/project/projectIndex',
+          name: '项目管理',
+          component: ProjectIndex,
+          meta: {
+            requireAuth: true
+          }
+        }, {
+          path: '/charts/statistics',
+          name: '数据可视化',
+          component: statistics,
+          meta: {
+            requireAuth: true
+          }
+        }]
     }]
-  }]
 })

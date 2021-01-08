@@ -4,7 +4,7 @@
            unique-opened class="el-menu-vertical-demo" background-color="#334157" text-color="#fff"
            active-text-color="#ffd04b" @select="menuUnfold">
     <div class="logobox">
-      <img class="logoimg" src="../assets/images/logo.png" >
+      <img class="logoimg" src="../assets/images/logo.png">
     </div>
     <el-submenu v-for="menu in allmenu" :key="menu.menuid" :index="menu.menuname">
       <template slot="title">
@@ -51,9 +51,9 @@
               {
                 menuid: 2,
                 icon: 'icon-cat-skuQuery',
-                menuname: '商品管理',
+                menuname: '我的工作台',
                 hasThird: 'N',
-                url: 'goods/Goods',
+                url: 'workBench/myWorkBench',
                 menus: null
               }
             ]

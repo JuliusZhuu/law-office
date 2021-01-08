@@ -70,7 +70,7 @@
     </div>
     <!--数据区域-->
     <div class="tableData">
-      <el-table :data="tableData" style="width: 100%">
+      <el-table :data="tableData" style="width: 100%"  max-height="500">
         <el-table-column type="index" width="40"/>
         <el-table-column label="案件名称" width="180">
           <template slot-scope="props">

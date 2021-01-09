@@ -61,7 +61,6 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         //查询项目的基本信息
         IPage<Project> pageInfo = new Page<>(currentPage, pageSize);
         List<Project> projects = projectMapper.selectPageProjectInfo(pageInfo, null);
-        pageInfo.getRecords();
         Map<String, Object> map = new HashMap<>();
         map.put("tableData", projects);
         map.put("pageInfo", new PageInfo(currentPage, pageSize, pageInfo.getTotal()));

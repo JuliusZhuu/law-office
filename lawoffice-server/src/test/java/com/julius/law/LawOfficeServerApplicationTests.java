@@ -21,7 +21,7 @@ class LawOfficeServerApplicationTests {
 
     @Test
     public void contextLoads() {
-        createModule("project", new String[]{"project", "projectConcat"});
+        createModule("client", new String[]{"client"});
     }
 
     /**
@@ -44,7 +44,7 @@ class LawOfficeServerApplicationTests {
         //是否打开输出目录,默认值为true
         gc.setOpen(false);
         //第二次生成会把第一次生成覆盖掉
-        //gc.setFileOverride(true);
+        gc.setFileOverride(false);
         //实体属性 Swagger2 注解
         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);

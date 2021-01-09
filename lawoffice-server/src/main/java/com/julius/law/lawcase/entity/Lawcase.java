@@ -33,6 +33,7 @@ public class Lawcase implements Serializable {
 
     @ApiModelProperty(value = "案件名称")
     private String name;
+
     @ApiModelProperty(value = "案件添加人")
     private String username;
 

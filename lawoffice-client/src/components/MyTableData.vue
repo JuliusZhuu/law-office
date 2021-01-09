@@ -10,7 +10,8 @@
         <el-table-column v-for="(item,index) in tableHeader" :label="item.labelName"
                          :property="item.propertyName" :key="index">
         </el-table-column>
-        <el-table-column align="center">
+
+        <el-table-column>
           <template slot="header" slot-scope="scope">
             <el-input
               v-model="searchName" size="mini" placeholder="输入关键字搜索"/>

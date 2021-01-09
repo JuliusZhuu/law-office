@@ -26,16 +26,86 @@
         </el-col>
       </el-row>
     </div>
-    <MyTableData/>
+    <AddOrUpdateClient :dialogTitle="dialogTitle" :dialogFormVisible="dialogFormVisible"
+                       @closeDialog="closeDialog"/>
+    <MyTableData :tableHeader="tableHeader" :tableData="tableData" :pageInfo="pageInfo"
+                 @pageInfoChange="pageInfoChange" @deleteItem="deleteItem"/>
   </div>
 </template>
 
 <script>
   import MyTableData from "../../components/MyTableData";
+  import AddOrUpdateClient from "./AddOrUpdateClient";
+  import {deleteClientInfo, listClientInfo} from "../../request/api";
+  import {commonToast} from "../../utils/util";
 
   export default {
     name: "ClientManageIndex",
-    components: {MyTableData}
+    data() {
+      return {
+        dialogTitle: '新建客户',
+        dialogFormVisible: false,
+        //表头数据
+        tableHeader: [],
+        //表格数据
+        tableData: [],
+        //分页信息
+        pageInfo: {currentPage: 1, pageSize: 20, total: 100}
+      }
+    },
+    methods: {
+      /**
+       * 关闭对话框,由于vue是单向数据流,只能通过父组件去改变
+       * @param close boolean值 false为关闭
+       */
+      closeDialog(close) {
+        this.dialogFormVisible = close
+      },
+      /**
+       *分页信息发生改变
+       * @param currentPage 改变后的页数
+       * @param pageSize 每页显示数量
+       */
+      pageInfoChange(currentPage, pageSize) {
+        this.initData({currentPage, pageSize});
+      },
+      /**
+       *删除一条数据
+       * @param id 要删除数据的id
+       */
+      deleteItem(id) {
+        const that = this
+        deleteClientInfo({id}).then(resp => {
+          that.initData()
+          commonToast(that, null, resp.message)
+        })
+      },
+      /**
+       * 初始化数据显示
+       * @param condition 条件对象{username:'julius'}
+       */
+      initData(condition = {currentPage: 1, pageSize: 20}) {
+        const that = this
+        listClientInfo(condition).then(resp => {
+          const {tableData, pageInfo} = resp.data
+          that.tableData = tableData;
+          that.pageInfo = pageInfo;
+        })
+      }
+    },
+    mounted() {
+      //初始化表头信息
+      this.tableHeader.push(
+        {labelName: '签约状态', propertyName: 'teamStatus'},
+        {labelName: '客户编号', propertyName: 'clientNumber'},
+        {labelName: '客户标识', propertyName: 'identification'},
+        {labelName: '合同起始日', propertyName: 'startDate'},
+        {labelName: '合同终止日', propertyName: 'endDate'},
+        {labelName: '客户跟进人', propertyName: 'followup'}
+      )
+      this.initData();
+    },
+    components: {MyTableData, AddOrUpdateClient}
   }
 </script>
 

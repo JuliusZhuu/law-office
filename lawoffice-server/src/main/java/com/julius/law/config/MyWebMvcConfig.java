@@ -1,5 +1,6 @@
 package com.julius.law.config;
 
+import com.julius.law.client.service.IClientService;
 import com.julius.law.lawcase.service.ILawcaseService;
 import com.julius.law.project.service.IProjectService;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +17,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
-    public MyWebMvcConfig(ILawcaseService lawcaseService, IProjectService projectService) {
+    public MyWebMvcConfig(ILawcaseService lawcaseService, IProjectService projectService, IClientService iClientService) {
         this.lawcaseService = lawcaseService;
         this.projectService = projectService;
+        this.iClientService = iClientService;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
 
     private final ILawcaseService lawcaseService;
     private final IProjectService projectService;
-
+    private final IClientService iClientService;
     /**
      * 循环任务,周一到周日 每隔5分钟执行一次
      * 执行恢复数据表任务
@@ -40,5 +42,6 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
     public void resetTable() {
         lawcaseService.resetTable();
         projectService.resetTable();
+        iClientService.resetTable();
     }
 }

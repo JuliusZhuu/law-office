@@ -58,6 +58,7 @@ public class Project implements Serializable {
     @ApiModelProperty(value = "开始时间")
     @TableField(value = "startDate")
     private LocalDateTime startDate;
+
     @TableField(value = "endDate")
     @ApiModelProperty(value = "结束时间")
     private LocalDateTime endDate;

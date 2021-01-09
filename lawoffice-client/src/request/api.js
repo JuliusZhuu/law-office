@@ -28,3 +28,11 @@ export const insertProjectInfo = params => request.post('/project/project/insert
 export const listProjectInfo = params => request.get('/project/project/list', {params})
 /*删除一条项目信息*/
 export const deleteProjectInfo = params => request.delete('/project/project/delete', {params})
+
+/*客户模块相关*/
+/*添加一条客户信息*/
+export const insertClientInfo = params => request.post('/client/client/insert', params)
+/*查询所有客户信息*/
+export const listClientInfo = params => request.get('/client/client/list', {params})
+/*删除一条客户信息*/
+export const deleteClientInfo = params => request.delete('/client/client/delete', {params})

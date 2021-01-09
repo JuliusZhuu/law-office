@@ -50,7 +50,7 @@
             menus: [
               {
                 menuid: 2,
-                icon: 'icon-cat-skuQuery',
+                icon: 'iconwodegongzuotai',
                 menuname: '我的工作台',
                 hasThird: 'N',
                 url: 'workBench/myWorkBench',
@@ -67,7 +67,7 @@
             menus: [
               {
                 menuid: 34,
-                icon: 'icon-order-manage',
+                icon: 'iconanjianguanli',
                 menuname: '案件管理',
                 hasThird: 'N',
                 url: 'lawCase/lawCase',
@@ -84,7 +84,7 @@
             menus: [
               {
                 menuid: 72,
-                icon: 'icon-cus-manage',
+                icon: 'iconxiangmuguanli',
                 menuname: '项目管理',
                 hasThird: 'N',
                 url: 'project/projectIndex',
@@ -101,7 +101,7 @@
             menus: [
               {
                 menuid: 129,
-                icon: 'icon-provider-manage',
+                icon: 'iconkehuguanli',
                 menuname: '客户管理',
                 hasThird: 'N',
                 url: 'client/clientManageIndex',
@@ -118,7 +118,7 @@
             menus: [
               {
                 menuid: 159,
-                icon: 'icon-provider-manage',
+                icon: 'iconkeshihua',
                 menuname: '数据可视化',
                 hasThird: 'N',
                 url: 'charts/statistics',

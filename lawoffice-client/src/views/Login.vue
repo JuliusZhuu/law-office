@@ -3,7 +3,7 @@
     <div class="Main">
       <div class="main">
         <div class="login-logo"><img width="125" height="125" src="../assets/images/logo.png"/></div>
-        <div class="login-title">江苏增益淮师事务所</div>
+        <div class="login-title">江苏益淮律师事务所</div>
         <div class="login-main">
           <div class="login-form">
             <el-form :model="loginInfo" class="login-info">
@@ -31,9 +31,12 @@
                     <div class="verificationCode">
                       <img src="../assets/login/yzm.png" alt="">
                     </div>
-                    <el-input v-model="loginInfo.code" ref="code" placeholder="请输入验证码" class="inpt-mid-size"
-                    ></el-input>
-                    <img :src="imgStr" alt="" class="yzCode">
+                    <el-input v-model="loginInfo.code" ref="code" placeholder="请输入验证码"
+                              class="inpt-mid-size"/>
+                  </el-form-item>
+                  <el-form-item class="random-code" label="验证码:">
+                    <el-button class="code-button" type="primary" @click="nextCode"> {{loginInfo.randomCode}}
+                    </el-button>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
@@ -62,17 +65,26 @@
       return {
         login: '登录',
         labelPosition: 'right',
-        imgStr: '',
         loginInfo: {
           username: '',
           password: '',
-          code: ''
+          code: '',
+          //随机验证码
+          randomCode: null,
         }
       }
     },
     methods: {
       loginFun() {
-        const {username, password} = this.loginInfo
+        const {username, password, randomCode, code} = this.loginInfo
+        //校验验证码
+        if (!(randomCode.toUpperCase() === code.toUpperCase())) {
+          this.$message({
+            type: "error",
+            message: '验证码输入不正确!'
+          })
+          return
+        }
         goLogin({username, password}).then(resp => {
           this.$message({
             type: 'success',
@@ -86,13 +98,43 @@
             }, 1000)
           }
         }).catch(error => {
-          console.log(error)
+
         })
+      },
+      /**
+       * 更换验证码内容
+       */
+      nextCode() {
+        // 验证码组成库
+        const arrays = ['1', '2', '3', '4', '5', '6', '7', '8',
+          '9', '0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+          'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+          'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+          'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+          'U', 'V', 'W', 'X', 'Y', 'Z'];
+        let code = ''
+        for (let i = 0; i < 4; i++) {
+          let index = Math.round(Math.random() * arrays.length);
+          code += arrays[index];
+        }
+        this.loginInfo.randomCode = code;
       }
+    },
+    mounted() {
+      this.nextCode();
     }
   }
 </script>
 <style scoped>
+  .random-code {
+    color: white;
+    font-weight: bold;
+  }
+
+  .code-button {
+    letter-spacing: 5px;
+  }
+
   .el-main {
     width: 45% !important;
     padding: 0 0 0 50px;

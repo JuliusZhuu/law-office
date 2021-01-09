@@ -49,6 +49,7 @@
 
 <script>
   import case_nodata from '../assets/images/case_nodata.png'
+  import {commonToast} from '../utils/util'
 
   export default {
     name: "MyTableData",
@@ -103,15 +104,13 @@
         const pageSize = this.pageInfo.pageSize;
         this.$emit('pageInfoChange', currentPage, pageSize)
       },
-      setCurrent(row) {
 
-      },
       /**
        * 处理表格编辑事件
        * @param index 当前数据下标
        */
       handleEdit(index) {
-
+        commonToast(this, null, '该功能暂未开放!')
       },
       /**
        * 处理表格删除事件
@@ -121,13 +120,7 @@
       handleDelete(index) {
         let id = this.tableData[index].id;
         this.$emit('deleteItem', id)
-      },
-      clickLawCase(id) {
-
       }
-    },
-    mounted() {
-      console.log(typeof this.tableData === 'undefined')
     }
   }
 </script>

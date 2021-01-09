@@ -24,7 +24,6 @@
   </el-menu>
 </template>
 <script>
-  import {loginout} from '../api/userMG'
 
   export default {
     name: 'navcon',

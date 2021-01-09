@@ -1,10 +1,7 @@
 <template>
   <!--客户管理-->
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>客户管理</el-breadcrumb-item>
-    </el-breadcrumb>
+    <MainNavTop :itemName="itemName"/>
     <div class="filterSearch">
       <el-row>
         <el-col :span="4">
@@ -34,8 +31,6 @@
 </template>
 
 <script>
-  import MyTableData from "../../components/MyTableData";
-  import AddOrUpdateClient from "./AddOrUpdateClient";
   import {deleteClientInfo, listClientInfo} from "../../request/api";
   import {commonToast} from "../../utils/util";
 
@@ -43,6 +38,7 @@
     name: "ClientManageIndex",
     data() {
       return {
+        itemName: '客户管理',
         dialogTitle: '新建客户',
         dialogFormVisible: false,
         //表头数据
@@ -105,7 +101,11 @@
       )
       this.initData();
     },
-    components: {MyTableData, AddOrUpdateClient}
+    components: {
+      MainNavTop: () => import('../../components/MainNavTop'),
+      MyTableData: () => import('../../components/MyTableData'),
+      AddOrUpdateClient: () => import('./AddOrUpdateClient')
+    }
   }
 </script>
 

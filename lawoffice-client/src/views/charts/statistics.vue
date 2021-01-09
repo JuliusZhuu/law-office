@@ -1,11 +1,7 @@
 <template>
   <!--图标显示-->
   <div class="stbox">
-    <!-- 面包屑导航 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>数据可视化</el-breadcrumb-item>
-    </el-breadcrumb>
+    <MainNavTop :itemName="itemName"/>
     <!-- 搜索，切换 -->
     <el-row :gutter="23">
       <el-col :span="18">
@@ -84,6 +80,7 @@
     name: "welcome",
     data() {
       return {
+        itemName: '数据可视化',
         machineNo: '',
         type: 'day',
         //  销售总笔数
@@ -481,7 +478,7 @@
     },
     // 导入组件
     components: {
-      // 点聚合组件
+      MainNavTop: () => import('../../components/MainNavTop')
     },
     // 创建完毕状态(里面是操作)
     created() {

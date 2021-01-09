@@ -1,10 +1,7 @@
 <template>
   <!--我的工作台-->
   <div class="my-work-bench">
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>我的工作台</el-breadcrumb-item>
-    </el-breadcrumb>
+    <MainNavTop :itemName="itemName"/>
     <div class="tips">
       <el-row>
         <el-col :span="12">
@@ -86,6 +83,7 @@
   export default {
     data() {
       return {
+        itemName: '我的工作台',
         //测试案件内容
         testCase: [
           {title: '南京市六合区人民检察院对南京亚伟金属制品有限公司、周正宏等提起民事公益诉讼'},
@@ -120,13 +118,13 @@
         activeIndex: '1'
       }
     },
-    created() {
-
-    },
     methods: {
       handleSelect(index) {
         this.activeIndex = index;
       }
+    },
+    components: {
+      MainNavTop: () => import('../../components/MainNavTop')
     }
   }
 </script>

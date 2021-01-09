@@ -1,13 +1,10 @@
 <template>
   <!--案件管理-->
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>案件管理</el-breadcrumb-item>
-    </el-breadcrumb>
+    <MainNavTop :itemName="itemName"/>
     <!--顶部下拉筛选框-->
     <div class="filterSearch">
-      <el-row >
+      <el-row>
         <el-col :span="4">
           <el-button type="primary" icon="el-icon-folder-add" round size="small"
                      @click="dialogFormVisible=true">新建
@@ -145,12 +142,12 @@
 <script>
   //引入表单动态生成库
   import formCreate from '@form-create/element-ui'
-  import MyTableData from "../../components/MyTableData";
   import {addLawCase, listLawCase, deleteLawCase} from "../../request/api";
 
   export default {
     data() {
       return {
+        itemName: '案件管理',
         //生成的多个当事人表单实例对象数组
         createPartiesForms: [],
         //生成的多个审理人员表单实例对象数组
@@ -446,7 +443,10 @@
       )
       this.initData();
     },
-    components: {MyTableData}
+    components: {
+      MyTableData: () => import('../../components/MyTableData'),
+      MainNavTop: () => import('../../components/MainNavTop')
+    }
   }
 </script>
 

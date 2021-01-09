@@ -1,34 +1,15 @@
-// 导入组件
+/*全局路由配置*/
 import Vue from 'vue';
 import Router from 'vue-router';
-// 登录
-import Login from '../views/Login';
-// 首页
-import index from '@/views/index';
-
-// 商品管理
-import MyWorkBenchIndex from '../views/workbench/MyWorkBenchIndex';
-
-
-// 案件管理
-import LawCaseIndex from '../views/lawCase/LawCaseIndex';
-
-// 监控查询
-
-// 图表界面
-import statistics from '@/views/charts/statistics';
-
-import ProjectIndex from "../views/project/ProjectIndex";
 // 启用路由
 Vue.use(Router)
 
-// 导出路由
 export default new Router({
   routes: [
     {
       path: '/',
       name: '',
-      component: Login,
+      component: () => import('../views/Login'),
       hidden: true,
       meta: {
         requireAuth: false
@@ -37,7 +18,7 @@ export default new Router({
     {
       path: '/login',
       name: '登录',
-      component: Login,
+      component: () => import('../views/Login'),
       hidden: true,
       meta: {
         requireAuth: false
@@ -46,13 +27,13 @@ export default new Router({
     {
       path: '/index',
       name: '首页',
-      component: index,
+      component: () => import('../views/index'),
       iconCls: 'el-icon-tickets',
       children: [
         {
           path: '/workBench/myWorkBench',
           name: '我的工作台',
-          component: MyWorkBenchIndex,
+          component: () => import('../views/workbench/MyWorkBenchIndex'),
           meta: {
             requireAuth: true
           }
@@ -68,21 +49,23 @@ export default new Router({
         {
           path: '/lawCase/lawCase',
           name: '案件管理',
-          component: LawCaseIndex,
+          component: () => import('../views/lawCase/LawCaseIndex'),
           meta: {
             requireAuth: true
           }
-        }, {
+        },
+        {
           path: '/project/projectIndex',
           name: '项目管理',
-          component: ProjectIndex,
+          component: () => import('../views/project/ProjectIndex'),
           meta: {
             requireAuth: true
           }
-        }, {
+        },
+        {
           path: '/charts/statistics',
           name: '数据可视化',
-          component: statistics,
+          component: () => import('../views/charts/statistics'),
           meta: {
             requireAuth: true
           }

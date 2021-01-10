@@ -6,7 +6,7 @@
       <el-row>
         <el-col :span="4">
           <el-button type="primary" icon="el-icon-folder-add" round size="small"
-                     @click="dialogFormVisible=true">新建
+                     @click="addItem">新建
           </el-button>
         </el-col>
         <el-col :span="4">
@@ -24,9 +24,9 @@
       </el-row>
     </div>
     <MyTableData :tableHeader="tableHeader" :tableData="tableData" :pageInfo="pageInfo"
-                 @pageInfoChange="pageInfoChange" @deleteItem="deleteItem"/>
+                 @pageInfoChange="pageInfoChange" @deleteItem="deleteItem" @updateItem="updateItem"/>
     <AddOrUpdateClient v-if="dialogFormVisible" :dialogTitle="dialogTitle"
-                       @closeDialog="closeDialog"/>
+                       @closeDialog="closeDialog" :formData="formData"/>
   </div>
 </template>
 
@@ -41,6 +41,7 @@
         itemName: '客户管理',
         dialogTitle: '新建客户',
         dialogFormVisible: false,
+        formData: null,
         //表头数据
         tableHeader: [],
         //表格数据
@@ -65,7 +66,15 @@
         this.initData({currentPage, pageSize});
       },
       /**
-       *删除一条数据
+       * 新增
+       */
+      addItem() {
+        this.dialogTitle = '新增客户'
+        this.formData = null
+        this.dialogFormVisible = true
+      },
+      /**
+       * 删除一条数据
        * @param id 要删除数据的id
        */
       deleteItem(id) {
@@ -74,6 +83,15 @@
           that.initData()
           commonToast(that, null, resp.message)
         })
+      },
+      /**
+       * 编辑一条数据
+       * @param data 要删除数据的id
+       */
+      updateItem(data) {
+        this.dialogTitle = '编辑客户'
+        this.dialogFormVisible = true
+        this.formData = data;
       },
       /**
        * 初始化数据显示

@@ -48,6 +48,7 @@ public class ClientController {
         //此处应该获取当前登录用户的信息,根据当前登录用户进行获取
         return clientService.listClients(currentPage, pageSize);
     }
+
     /**
      * 根据id删除一条信息
      *
@@ -57,6 +58,18 @@ public class ClientController {
     @DeleteMapping("delete")
     public ResponseEntity delete(@RequestParam Long id) {
         return clientService.delete(id);
+    }
+
+    /**
+     * 更新客户信息
+     *
+     * @param client 客户信息对象
+     * @return
+     */
+    @PutMapping("update")
+    public ResponseEntity update(@RequestBody Client client) {
+
+        return null;
     }
 }
 

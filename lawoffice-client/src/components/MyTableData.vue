@@ -87,7 +87,6 @@
         currentPage4: 1
       }
     },
-    props: ['tableHeader', 'tableData', 'pageInfo', 'pageInfoChange', 'deleteItem'],
     methods: {
       /**
        * 每页显示数量发生改变
@@ -111,7 +110,7 @@
        * @param index 当前数据下标
        */
       handleEdit(index) {
-        commonToast(this, null, '该功能暂未开放!')
+        this.$emit('updateItem', this.tableData[index]);
       },
       /**
        * 处理表格删除事件
@@ -119,10 +118,10 @@
        * @param index 当前数据下标
        */
       handleDelete(index) {
-        let id = this.tableData[index].id;
-        this.$emit('deleteItem', id)
+        this.$emit('deleteItem', this.tableData[index].id)
       }
-    }
+    },
+    props: ['tableHeader', 'tableData', 'pageInfo', 'pageInfoChange', 'deleteItem', 'updateItem']
   }
 </script>
 

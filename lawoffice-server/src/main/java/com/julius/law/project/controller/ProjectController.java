@@ -2,6 +2,8 @@ package com.julius.law.project.controller;
 
 
 import com.julius.law.config.ResponseEntity;
+import com.julius.law.lawcase.entity.Lawcase;
+import com.julius.law.project.entity.Project;
 import com.julius.law.project.service.IProjectService;
 import io.swagger.models.auth.In;
 import org.springframework.web.bind.annotation.*;
@@ -60,5 +62,15 @@ public class ProjectController {
         return projectService.delete(id);
     }
 
+    /**
+     * 更新信息
+     *
+     * @param project 无法直接映射
+     * @return
+     */
+    @PutMapping("update")
+    public ResponseEntity update(@RequestBody Project project) {
+        return null;
+    }
 }
 

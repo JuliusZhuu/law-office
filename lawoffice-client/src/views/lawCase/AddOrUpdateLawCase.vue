@@ -31,7 +31,9 @@
             </el-select>
           </el-form-item>
           <el-form-item style="text-align: right">
-            <el-link type="primary" @click="showMore" v-if="!moreInfo">添加更多信息>></el-link>
+            <el-link type="primary" @click="showMore" v-if="!moreInfo">
+              {{formData===null?'添加更多信息>>':'查看更多信息>>'}}
+            </el-link>
           </el-form-item>
           <!--添加更多信息-->
           <div v-if="moreInfo">
@@ -73,7 +75,7 @@
 </template>
 
 <script>
-  import {addLawCase} from "../../request/api";
+  import {updateLawCase, addLawCase} from "../../request/api";
   import formCreate from "@form-create/element-ui";
   import {commonToast} from '../../utils/util'
 
@@ -81,7 +83,7 @@
     name: "AddOrUpdateLawCase",
     data() {
       return {
-        dialogFormVisible: true,
+        dialogFormVisible: false,
         //生成的多个当事人表单实例对象数组
         createPartiesForms: [],
         //生成的多个审理人员表单实例对象数组
@@ -90,6 +92,7 @@
         createAssistForms: [],
         moreInfo: false,//添加更多信息
         form: {
+          id: null,
           name: '',//案件标题
           principal: '',//案件负责人
           type: '',//案件类型
@@ -303,13 +306,25 @@
         lawCase.push(partiesArr)
         lawCase.push(hearArr)
         lawCase.push(assistArr)
-        //存储到数据库
-        addLawCase(lawCase).then(resp => {
-          commonToast(this)
-        })
+        if (this.formData === null) {
+          //更新
+          updateLawCase().then(resp => {
+            commonToast(this)
+          })
+        } else {
+          //存储到数据库
+          addLawCase(lawCase).then(resp => {
+            commonToast(this)
+          })
+        }
       },
     },
-    props: ['closeDialog', 'dialogTitle']
+    mounted() {
+      this.dialogFormVisible = true
+      //数据回显
+      console.log(this.formData)
+    },
+    props: ['closeDialog', 'dialogTitle', 'formData']
   }
 </script>
 

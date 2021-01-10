@@ -3,7 +3,8 @@
   <div>
     <!--表单显示-->
     <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible"
-               @close="closeMyDialog" :close-on-click-modal="false" center>
+               @close="closeMyDialog"
+               :close-on-click-modal="false" center>
       <div class="el-dialog-div">
         <el-form :model="form">
           <h4>客户基本信息</h4>
@@ -80,16 +81,17 @@
 
 <script>
   import {commonToast} from "../../utils/util";
-  import {insertClientInfo} from "../../request/api";
+  import {updateClientInfo, insertClientInfo} from "../../request/api";
 
   export default {
     name: "AddOrUpdateClient",
     data() {
       return {
         //弹出框显示
-        dialogFormVisible: true,
+        dialogFormVisible: false,
         formLabelWidth: '130px',
         form: {
+          id: null,
           clientNumber: null,
           identification: '个人',
           teamStatus: null,
@@ -112,16 +114,28 @@
     methods: {
       submitForm() {
         const that = this;
-        insertClientInfo(this.form).then(resp => {
-          commonToast(that, null, resp.message)
-        })
+        if (this.formData === null) {
+          //新增
+          insertClientInfo(this.form).then(resp => {
+            commonToast(that, null, resp.message)
+          })
+        } else {
+          //更新
+          updateClientInfo(this.form).then(resp => {
+            commonToast(that, null, resp.message)
+          })
+        }
       },
       closeMyDialog() {
         //通知父组件关闭
         this.$emit('closeDialog')
       }
     },
-    props: ['dialogTitle', 'closeDialog']
+    mounted() {
+      this.dialogFormVisible = true
+      console.log(this.formData)
+    },
+    props: ['dialogTitle', 'closeDialog', 'formData']
   }
 </script>
 

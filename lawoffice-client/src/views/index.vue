@@ -65,17 +65,17 @@ export default {
   width: 64px !important;
   height: 100%;
   background-color: #334157;
-  margin: 0px;
+  margin: 0;
 }
 .asideshow {
   width: 240px !important;
   height: 100%;
   background-color: #334157;
-  margin: 0px;
+  margin: 0;
 }
 .index-header,
 .index-main {
-  padding: 0px;
+  padding: 0;
   border-left: 2px solid #333;
 }
 </style>

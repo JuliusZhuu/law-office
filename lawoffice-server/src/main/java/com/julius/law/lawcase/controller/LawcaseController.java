@@ -2,6 +2,7 @@ package com.julius.law.lawcase.controller;
 
 
 import com.julius.law.config.ResponseEntity;
+import com.julius.law.lawcase.entity.Lawcase;
 import com.julius.law.lawcase.service.ILawcaseService;
 import io.swagger.models.auth.In;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +58,18 @@ public class LawcaseController {
     @DeleteMapping("delete")
     public ResponseEntity delete(@RequestParam Long id) {
         return iLawcaseService.delete(id);
+    }
+
+    /**
+     * 更新信息
+     *
+     * @param lawCase 无法直接映射
+     * @return
+     */
+    @PutMapping("update")
+    public ResponseEntity update(@RequestBody Lawcase lawCase) {
+
+        return null;
     }
 }
 

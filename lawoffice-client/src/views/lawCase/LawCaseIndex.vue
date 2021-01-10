@@ -7,7 +7,7 @@
       <el-row>
         <el-col :span="4">
           <el-button type="primary" icon="el-icon-folder-add" round size="small"
-                     @click="dialogFormVisible=true">新建
+                     @click="addItem">新建
           </el-button>
         </el-col>
         <el-col :span="4">
@@ -68,10 +68,11 @@
     </div>
     <!--数据区域-->
     <my-table-data :tableHeader="tableHeader" :tableData="tableData" :pageInfo="pageInfo"
-                   @pageInfoChange="pageInfoChange" @deleteItem="deleteItem"/>
+                   @pageInfoChange="pageInfoChange" @deleteItem="deleteItem"
+                   @updateItem="updateItem"/>
     <!--弹出框显示-->
     <AddOrUpdateLawCase v-if="dialogFormVisible" :dialogTitle="dialogTitle"
-                        @closeDialog="closeDialog"/>
+                        @closeDialog="closeDialog" :formData="formData"/>
   </div>
 </template>
 
@@ -85,6 +86,7 @@
         //控制弹出表单显示
         dialogFormVisible: false,
         dialogTitle: '添加案件',
+        formData: null,
         itemName: '案件管理',
         tableHeader: [],
         tableData: [],
@@ -104,6 +106,7 @@
           that.tableData = tableData;
           that.pageInfo = pageInfo;
         })
+
       },
       /**
        *分页信息发生改变
@@ -112,6 +115,14 @@
        */
       pageInfoChange(currentPage, pageSize) {
         this.initData({currentPage, pageSize});
+      },
+      /**
+       * 新增一条案件
+       */
+      addItem() {
+        this.dialogTitle = '新增案件'
+        this.formData = null
+        this.dialogFormVisible = true
       },
       /**
        *删除一条数据
@@ -123,6 +134,15 @@
           that.initData()
           commonToast(that)
         })
+      },
+      /**
+       *编辑一条数据
+       * @param data 新的数据
+       */
+      updateItem(data) {
+        this.dialogTitle = '编辑案件'
+        this.formData = data
+        this.dialogFormVisible = true
       },
       /**
        * 关闭弹出框

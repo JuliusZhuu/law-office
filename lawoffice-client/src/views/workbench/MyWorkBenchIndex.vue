@@ -119,6 +119,9 @@
       }
     },
     methods: {
+      atOpen() {
+        console.log('open')
+      },
       handleSelect(index) {
         this.activeIndex = index;
       }

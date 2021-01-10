@@ -2,7 +2,8 @@
   <!--添加或者更新一个项目信息-->
   <div>
     <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible"
-               @close="closeMyDialog" :close-on-click-modal="false" center>
+               @close="closeMyDialog"
+               :close-on-click-modal="false" center>
       <div class="el-dialog-div">
         <el-form :model="form">
           <el-form-item label="项目标题:" :label-width="formLabelWidth" prop="name">
@@ -31,7 +32,9 @@
             <el-input v-model="form.principal" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item style="text-align: right">
-            <el-link type="primary" @click="moreInfo=!moreInfo" v-if="!moreInfo">添加更多信息>></el-link>
+            <el-link type="primary" @click="moreInfo=!moreInfo" v-if="!moreInfo">
+              {{formData===null?'添加更多信息>>':'查看更多信息>>'}}
+            </el-link>
           </el-form-item>
           <!--更多信息-->
           <div class="more" v-if="moreInfo">
@@ -72,7 +75,7 @@
 </template>
 
 <script>
-  import {insertProjectInfo} from "../../request/api";
+  import {updateProjectInfo, insertProjectInfo} from "../../request/api";
   import formCreate from "@form-create/element-ui";
   import {commonToast} from '../../utils/util'
 
@@ -80,9 +83,10 @@
     name: "AddOrUpdateProject",
     data() {
       return {
-        dialogFormVisible: true,
+        dialogFormVisible: false,
         formLabelWidth: '120px',
         form: {
+          id: null,
           name: null,
           type: null,
           level: null,
@@ -103,6 +107,10 @@
         createConcatForms: [],
       }
     },
+    mounted() {
+      this.dialogFormVisible = true
+      console.log(this.formData)
+    },
     methods: {
       submitForm() {
         //存放单个项目的基本信息
@@ -115,10 +123,15 @@
         //存放单个案件信息
         projectInfo.push(this.form)
         projectInfo.push(conCats)
-        //添加到数据库
-        insertProjectInfo(projectInfo).then(resp => {
-          commonToast(this, 'success', resp.message)
-        })
+        if (this.formData === null) {
+          insertProjectInfo(projectInfo).then(resp => {
+            commonToast(this, 'success', resp.message)
+          })
+        } else {
+          updateProjectInfo().then(resp => {
+            commonToast(this, 'success', resp.message)
+          })
+        }
       },
       /**
        * 动态生成联系人表单信息
@@ -191,7 +204,7 @@
         this.$emit('closeDialog')
       }
     },
-    props: ['closeDialog', 'dialogTitle']
+    props: ['closeDialog', 'dialogTitle', 'formData']
   }
 </script>
 

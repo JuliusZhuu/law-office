@@ -6,7 +6,7 @@
       <el-row :gutter="20">
         <el-col :span="4">
           <el-button type="primary" size="small" icon="el-icon-folder-add" round
-                     @click="dialogFormVisible=true">新建
+                     @click="addItem">新建
           </el-button>
         </el-col>
         <el-col :span="4">
@@ -65,14 +65,17 @@
     </div>
     <!--表格区域-->
     <my-table-data :tableHeader="tableHeader" :tableData="tableData" :pageInfo="pageInfo"
-                   @pageInfoChange="pageInfoChange" @deleteItem="deleteItem"/>
-    <AddOrUpdateProject v-if="dialogFormVisible" :dialogTitle="dialogTitle"
+                   @pageInfoChange="pageInfoChange" @deleteItem="deleteItem" @updateItem="updateItem"/>
+    <AddOrUpdateProject v-if="dialogFormVisible"
+                        :formData="formData"
+                        :dialogTitle="dialogTitle"
                         @closeDialog="closeDialog"/>
   </div>
 </template>
 
 <script>
   import {listProjectInfo, deleteProjectInfo} from "../../request/api";
+  import {commonToast} from '../../utils/util'
 
   export default {
     name: "ProjectIndex",
@@ -83,6 +86,8 @@
         dialogTitle: '新建项目',
         //弹出框显示
         dialogFormVisible: false,
+        //表单数据,传递给子组件用于编辑
+        formData: null,
         //表头数据
         tableHeader: [],
         //表格数据
@@ -130,6 +135,23 @@
         this.initData({currentPage, pageSize});
       },
       /**
+       * 新增
+       */
+      addItem() {
+        this.dialogTitle = '新增项目'
+        this.formData = null
+        this.dialogFormVisible = true
+      },
+      /**
+       * 编辑一条数据
+       * @param data 要删除数据的id
+       */
+      updateItem(data) {
+        this.dialogTitle = '编辑项目'
+        this.formData = data
+        this.dialogFormVisible = true
+      },
+      /**
        *删除一条数据
        * @param id 要删除数据的id
        */
@@ -137,12 +159,10 @@
         const that = this
         deleteProjectInfo({id}).then(resp => {
           that.initData()
-          that.$message({
-            type: 'success',
-            message: '成功'
-          })
+          commonToast(that)
         })
-      }
+      },
+
     },
     components: {
       MyTableData: () => import('../../components/MyTableData'),

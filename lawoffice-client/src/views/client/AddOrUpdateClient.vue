@@ -120,6 +120,8 @@
             commonToast(that, null, resp.message)
           })
         } else {
+          commonToast(that, 'error', '功能暂未实现')
+          return;
           //更新
           updateClientInfo(this.form).then(resp => {
             commonToast(that, null, resp.message)
@@ -133,7 +135,7 @@
     },
     mounted() {
       this.dialogFormVisible = true
-      console.log(this.formData)
+      this.form = this.formData
     },
     props: ['dialogTitle', 'closeDialog', 'formData']
   }

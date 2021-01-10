@@ -307,22 +307,24 @@
         lawCase.push(hearArr)
         lawCase.push(assistArr)
         if (this.formData === null) {
+          addLawCase(lawCase).then(resp => {
+            commonToast(this)
+          })
+        } else {
+          commonToast(this, 'error', '功能暂未实现')
+          return;
           //更新
           updateLawCase().then(resp => {
             commonToast(this)
           })
-        } else {
-          //存储到数据库
-          addLawCase(lawCase).then(resp => {
-            commonToast(this)
-          })
+
         }
       },
     },
     mounted() {
       this.dialogFormVisible = true
       //数据回显
-      console.log(this.formData)
+      this.form = this.formData
     },
     props: ['closeDialog', 'dialogTitle', 'formData']
   }

@@ -107,10 +107,6 @@
         createConcatForms: [],
       }
     },
-    mounted() {
-      this.dialogFormVisible = true
-      console.log(this.formData)
-    },
     methods: {
       submitForm() {
         //存放单个项目的基本信息
@@ -128,6 +124,8 @@
             commonToast(this, 'success', resp.message)
           })
         } else {
+          commonToast(this, 'error', '功能暂未实现')
+          return;
           updateProjectInfo().then(resp => {
             commonToast(this, 'success', resp.message)
           })
@@ -204,7 +202,11 @@
         this.$emit('closeDialog')
       }
     },
-    props: ['closeDialog', 'dialogTitle', 'formData']
+    props: ['closeDialog', 'dialogTitle', 'formData'],
+    mounted() {
+      this.dialogFormVisible = true
+      this.form = this.formData
+    }
   }
 </script>
 

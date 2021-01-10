@@ -59,13 +59,16 @@ public class LawcaseServiceImpl extends ServiceImpl<LawcaseMapper, Lawcase> impl
         //添加数据接收返回的id
         lawcaseMapper.insert(lawcase);
         Long id = lawcase.getId();
-        //有数据才添加
-        if (jsonArray.size() > 1) {
-            //取出当事人信息并添加到数据表中
+        //取出当事人信息并添加到数据表中
+        if (jsonArray.getJSONArray(1).size() > 0) {
             iLawpartiesService.insert(jsonArray.getJSONArray(1), id);
-            //取出审理人员信息
+        }
+        //取出审理人员信息
+        if (jsonArray.getJSONArray(2).size() > 0) {
             iLawhearService.insert(jsonArray.getJSONArray(2), id);
-            //取出辅助人员信息
+        }
+        //取出辅助人员信息
+        if (jsonArray.getJSONArray(3).size() > 1) {
             iLawassistService.insert(jsonArray.getJSONArray(3), id);
         }
         return new ResponseEntity(200, "添加成功", null);
@@ -95,7 +98,7 @@ public class LawcaseServiceImpl extends ServiceImpl<LawcaseMapper, Lawcase> impl
 
     @Override
     public void resetTable() {
-          lawcaseMapper.resetTable();
+        lawcaseMapper.resetTable();
     }
 
     /**

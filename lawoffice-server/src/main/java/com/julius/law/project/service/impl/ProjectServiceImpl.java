@@ -50,7 +50,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         Project object = jsonArray.getObject(0, Project.class);
         projectMapper.insert(object);
         //有联系人才会添加
-        if (jsonArray.size() > 1) {
+        if (jsonArray.getJSONArray(1).size() > 0) {
             projectconcatService.insert(jsonArray.getJSONArray(1), object.getId());
         }
         return new ResponseEntity(200, "添加成功", null);

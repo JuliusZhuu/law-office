@@ -23,10 +23,10 @@
         </el-col>
       </el-row>
     </div>
-    <AddOrUpdateClient :dialogTitle="dialogTitle" :dialogFormVisible="dialogFormVisible"
-                       @closeDialog="closeDialog"/>
     <MyTableData :tableHeader="tableHeader" :tableData="tableData" :pageInfo="pageInfo"
                  @pageInfoChange="pageInfoChange" @deleteItem="deleteItem"/>
+    <AddOrUpdateClient v-if="dialogFormVisible" :dialogTitle="dialogTitle"
+                       @closeDialog="closeDialog"/>
   </div>
 </template>
 
@@ -52,10 +52,9 @@
     methods: {
       /**
        * 关闭对话框,由于vue是单向数据流,只能通过父组件去改变
-       * @param close boolean值 false为关闭
        */
-      closeDialog(close) {
-        this.dialogFormVisible = close
+      closeDialog() {
+        this.dialogFormVisible = false
       },
       /**
        *分页信息发生改变

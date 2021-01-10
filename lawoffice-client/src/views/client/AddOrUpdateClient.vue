@@ -3,7 +3,7 @@
   <div>
     <!--表单显示-->
     <el-dialog :title="dialogTitle" :visible.sync="dialogFormVisible"
-               :show-close="false" :close-on-click-modal="false" center>
+               @close="closeMyDialog" :close-on-click-modal="false" center>
       <div class="el-dialog-div">
         <el-form :model="form">
           <h4>客户基本信息</h4>
@@ -86,7 +86,8 @@
     name: "AddOrUpdateClient",
     data() {
       return {
-        //弹出框标题信息
+        //弹出框显示
+        dialogFormVisible: true,
         formLabelWidth: '130px',
         form: {
           clientNumber: null,
@@ -116,13 +117,11 @@
         })
       },
       closeMyDialog() {
-        //清空表单值
-
         //通知父组件关闭
-        this.$emit('closeDialog', false)
+        this.$emit('closeDialog')
       }
     },
-    props: ['dialogFormVisible', 'dialogTitle', 'closeDialog']
+    props: ['dialogTitle', 'closeDialog']
   }
 </script>
 

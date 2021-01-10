@@ -30,14 +30,7 @@
         allmenu: []
       }
     },
-    methods: {
-      menuUnfold(index) {
-
-      }
-    },
-    // 创建完毕状态(里面是操作)
     created() {
-      // 获取图形验证码
       let res = {
         success: true,
         data: [
@@ -70,7 +63,7 @@
                 icon: 'iconanjianguanli',
                 menuname: '案件管理',
                 hasThird: 'N',
-                url: 'lawCase/lawCase',
+                url: 'lawCase/lawCaseIndex',
                 menus: null
               }
             ]
@@ -166,7 +159,7 @@
     color: #9d9d9d;
     font-size: 20px;
     text-align: center;
-    padding: 20px 0px;
+    padding: 20px 0;
   }
 
   .logoimg {

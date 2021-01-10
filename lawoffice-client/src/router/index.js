@@ -8,12 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: '',
-      component: () => import('../views/Login'),
-      hidden: true,
-      meta: {
-        requireAuth: false
-      }
+      redirect: '/login'
     },
     {
       path: '/login',
@@ -39,15 +34,7 @@ export default new Router({
           }
         },
         {
-          path: '/client/clientManageIndex',
-          name: '客户管理',
-          component: () => import('../views/client/ClientManageIndex'),
-          meta: {
-            requireAuth: true
-          }
-        },
-        {
-          path: '/lawCase/lawCase',
+          path: '/lawCase/lawCaseIndex',
           name: '案件管理',
           component: () => import('../views/lawCase/LawCaseIndex'),
           meta: {
@@ -58,6 +45,14 @@ export default new Router({
           path: '/project/projectIndex',
           name: '项目管理',
           component: () => import('../views/project/ProjectIndex'),
+          meta: {
+            requireAuth: true
+          }
+        },
+        {
+          path: '/client/clientManageIndex',
+          name: '客户管理',
+          component: () => import('../views/client/ClientManageIndex'),
           meta: {
             requireAuth: true
           }

@@ -70,7 +70,23 @@
        */
       addItem() {
         this.dialogTitle = '新增客户'
-        this.formData = null
+        this.formData = {
+          id: null,
+          clientNumber: null,
+          identification: '个人',
+          teamStatus: null,
+          startDate: null,
+          endDate: null,
+          followup: null,
+          origin: null,
+          unitName: null,
+          importance: null,
+          address: null,
+          representative: null,
+          mobile: null,
+          creditCode: null,
+          backup: null
+        }
         this.dialogFormVisible = true
       },
       /**

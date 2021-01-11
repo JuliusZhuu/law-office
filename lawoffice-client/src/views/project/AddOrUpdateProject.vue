@@ -33,7 +33,7 @@
           </el-form-item>
           <el-form-item style="text-align: right">
             <el-link type="primary" @click="moreInfo=!moreInfo" v-if="!moreInfo">
-              {{formData===null?'添加更多信息>>':'查看更多信息>>'}}
+              {{dialogTitle==='新增项目'?'添加更多信息>>':'查看更多信息>>'}}
             </el-link>
           </el-form-item>
           <!--更多信息-->

@@ -32,7 +32,7 @@
           </el-form-item>
           <el-form-item style="text-align: right">
             <el-link type="primary" @click="showMore" v-if="!moreInfo">
-              {{formData===null?'添加更多信息>>':'查看更多信息>>'}}
+              {{dialogTitle==='新增案件'?'添加更多信息>>':'查看更多信息>>'}}
             </el-link>
           </el-form-item>
           <!--添加更多信息-->

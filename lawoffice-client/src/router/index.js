@@ -64,6 +64,15 @@ export default new Router({
           meta: {
             requireAuth: true
           }
-        }]
+        },
+        {
+          path: '/myInfo/myInfoIndex',
+          name: '个人信息',
+          component: () => import('../views/myInfo/MyInfoIndex'),
+          meta: {
+            requireAuth: true
+          }
+        }
+      ]
     }]
 })

@@ -118,6 +118,23 @@
                 menus: null
               }
             ]
+          },
+          {
+            menuid: 160,
+            icon: 'iconwode3',
+            menuname: '个人',
+            hasThird: null,
+            url: null,
+            menus: [
+              {
+                menuid: 159,
+                icon: 'icongerenzhongxin',
+                menuname: '个人信息',
+                hasThird: 'N',
+                url: 'myInfo/myInfoIndex',
+                menus: null
+              }
+            ]
           }
         ],
         msg: 'success'

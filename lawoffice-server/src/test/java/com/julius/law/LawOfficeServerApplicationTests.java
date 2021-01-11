@@ -21,16 +21,17 @@ class LawOfficeServerApplicationTests {
 
     @Test
     public void contextLoads() {
-        createModule("client", new String[]{"client"});
+        createModule("com.julius.law", "client", new String[]{"client"});
     }
 
     /**
      * 自动创建模快
      *
-     * @param moduleName 生成模块名称
-     * @param tableName  逆向工程表名称,多个表使用,分隔
+     * @param parentModuleName 父模块名称
+     * @param moduleName       生成模块名称
+     * @param tableName        逆向工程表名称
      */
-    void createModule(String moduleName, String[] tableName) {
+    void createModule(final String parentModuleName, final String moduleName, final String[] tableName) {
         //代码生成器
         AutoGenerator mpg = new AutoGenerator();
         //全局配置
@@ -63,7 +64,7 @@ class LawOfficeServerApplicationTests {
         //模块名称
         pc.setModuleName(moduleName);
         //设置父包
-        pc.setParent("com.julius.law");
+        pc.setParent(parentModuleName);
         mpg.setPackageInfo(pc);
 
         // 策略配置

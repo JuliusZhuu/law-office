@@ -10,9 +10,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    schema: classpath:db/schema-h2.sql
     #    data: classpath:db/data-h2.sql
-    url: jdbc:mysql://192.168.1.123:3306/law
-    username: root
-    password: 123456
+    url: jdbc:mysql://218.2.26.18:9192/law
+    username: law_user
+    password: lv350166
   jackson:
     date-format: yyyy-MM-dd
     time-zone: GMT+8 #时区问题

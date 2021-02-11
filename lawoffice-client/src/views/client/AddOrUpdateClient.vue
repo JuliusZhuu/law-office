@@ -24,8 +24,12 @@
             </el-select>
           </el-form-item>
           <el-form-item label="合同起止时间:" :label-width="formLabelWidth" prop="entrust">
-            <el-date-picker v-model="form.startDate" type="date" placeholder="选择日期"/>
-            <el-date-picker v-model="form.endDate" type="date" placeholder="选择日期"/>
+            <el-date-picker v-model="form.startDate"
+                            format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"
+                            type="date" placeholder="选择日期"/>
+            <el-date-picker v-model="form.endDate" format="yyyy 年 MM 月 dd 日"
+                            value-format="yyyy-MM-dd"
+                            type="date" placeholder="选择日期"/>
           </el-form-item>
           <el-form-item label="跟进人:" :label-width="formLabelWidth" prop="name">
             <el-input v-model="form.followup" autocomplete="off"></el-input>
@@ -117,7 +121,8 @@
         if (this.formData === null) {
           //新增
           insertClientInfo(this.form).then(resp => {
-            commonToast(that, null, resp.message)
+            //不需要更改默认形参，必须传递undefined,禁止传递null
+            commonToast(that, undefined, resp.message)
           })
         } else {
           commonToast(that, 'error', '功能暂未实现')
@@ -135,7 +140,9 @@
     },
     mounted() {
       this.dialogFormVisible = true
-      this.form = this.formData
+      if (this.formData != null) {
+        this.form = this.formData
+      }
     },
     props: ['dialogTitle', 'closeDialog', 'formData']
   }

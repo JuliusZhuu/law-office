@@ -83,6 +83,7 @@
             type: "error",
             message: '验证码输入不正确!'
           })
+          this.nextCode();
           return
         }
         goLogin({username, password}).then(resp => {

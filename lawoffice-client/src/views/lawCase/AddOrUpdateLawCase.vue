@@ -317,14 +317,15 @@
           updateLawCase().then(resp => {
             commonToast(this)
           })
-
         }
       },
     },
     mounted() {
       this.dialogFormVisible = true
-      //数据回显
-      this.form = this.formData
+      //有数据则进行回显
+      if (this.formData !== null) {
+        this.form = this.formData
+      }
     },
     props: ['closeDialog', 'dialogTitle', 'formData']
   }

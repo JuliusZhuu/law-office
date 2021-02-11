@@ -205,7 +205,9 @@
     props: ['closeDialog', 'dialogTitle', 'formData'],
     mounted() {
       this.dialogFormVisible = true
-      this.form = this.formData
+      if (this.formData != null) {
+        this.form = this.formData
+      }
     }
   }
 </script>

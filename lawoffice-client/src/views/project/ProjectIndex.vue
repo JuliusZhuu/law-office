@@ -139,20 +139,7 @@
        */
       addItem() {
         this.dialogTitle = '新增项目'
-        this.formData = {
-          id: null,
-          name: null,
-          type: null,
-          level: null,
-          entrust: null,
-          principal: null,
-          entrustItem: null,
-          startDate: null,
-          endDate: null,
-          expenditure: null,
-          expendExplain: null,
-          backup: null
-        }
+        this.formData = null;
         this.dialogFormVisible = true
       },
       /**

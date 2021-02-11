@@ -3,6 +3,7 @@ package com.julius.law.client.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -46,13 +48,17 @@ public class Client implements Serializable {
 
     @ApiModelProperty(value = "合同开始时间")
     @TableField("startDate")
+    //数据库查询出来的格式化方式
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private LocalDateTime startDate;
+    //请求处理的格式化方式
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
 
     @ApiModelProperty(value = "合同结束时间")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @TableField("endDate")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @ApiModelProperty(value = "跟进人")
     private String followup;

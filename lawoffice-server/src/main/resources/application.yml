@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    schema: classpath:db/schema-h2.sql
+    #    data: classpath:db/data-h2.sql
+    #地址问题需要注意,直接用公网ip有时候也会连接不上
+    #禁止使用localhost,无法连接请到docker中查看宿主机内网ip
+    url: jdbc:mysql://218.2.26.18:9192/law
+    username: law_user
+    password: 123456
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8 #时区问题
+  config:
+    activate:
+      on-profile: dev
+server:
+  port: 8089
+debug: false
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/**/*.xml    #扫描xml文件位置
+  global-config:
+    db-config:
+      table-underline: true
+---
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.100.120:9192/law
+    username: law_user
+    password: 123456
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8 #时区问题
+  config:
+    activate:
+      on-profile: proc
+server:
+  port: 8089
+debug: false
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/**/*.xml    #扫描xml文件位置
+  global-config:
+    db-config:
+      table-underline: true

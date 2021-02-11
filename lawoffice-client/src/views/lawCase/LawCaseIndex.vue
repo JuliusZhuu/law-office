@@ -121,18 +121,7 @@
        */
       addItem() {
         this.dialogTitle = '新增案件'
-        this.formData = {
-          id: null,
-          name: '',
-          principal: '',
-          type: '',
-          level: '',
-          reason: '',
-          program: '',
-          organization: '',
-          organizationNumber: '',
-          backup: ''
-        }
+        this.formData = null;
         this.dialogFormVisible = true
       },
       /**

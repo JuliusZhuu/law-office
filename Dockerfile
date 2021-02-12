@@ -8,7 +8,7 @@ MAINTAINER julius <1135061539@qq.com>
 VOLUME /tmp
 
 #添加文件并重命名
-ADD lawoffice-server-0.0.1-SNAPSHOT.jar  app.jar
+ADD ./jar/lawoffice-server-0.0.1-SNAPSHOT.jar  app.jar
 
 # 运行jar包
 ENTRYPOINT ["java","-jar","/app.jar","--spring.profiles.active=proc"]

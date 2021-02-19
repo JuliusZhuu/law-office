@@ -50,8 +50,10 @@
         </div>
       </div>
       <div class="bottom">
-        所属单位：淮安益淮实业有限公司&nbsp;&nbsp;&nbsp;备案号：<a href="http://www.beian.miit.gov.cn" target="_blank">
-        苏ICP备18025878号-1</a>&nbsp;&nbsp;&nbsp;技术支持：江苏益淮网络技术有限公司
+        所属单位：江苏益淮律师事务所
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<!--        备案号：<a href="http://www.beian.miit.gov.cn" target="_blank"> 苏ICP备18025878号-1</a>&nbsp;&nbsp;&nbsp;-->
+        技术支持：江苏电子信息职业学院
       </div>
     </div>
   </el-container>
@@ -225,7 +227,7 @@
   .main {
     width: 100%;
     height: 100%;
-    margin-top: 6%;
+    margin-top: 2%;
     /* display: flex; */
     /* justify-content: center; */
   }
